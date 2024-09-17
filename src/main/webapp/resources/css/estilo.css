@@ -1,0 +1,13 @@
+@charset "utf-8";
+
+ .btn-outline-light {
+	margin-right: 1050px;
+	color: white;
+}
+
+.navbar-title {
+	color: white;
+	margin-left: -150px;
+	font-family:sans-serif;
+	text-decoration: none;
+}

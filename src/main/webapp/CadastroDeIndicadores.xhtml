@@ -1,63 +1,63 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:f="http://xmlns.jcp.org/jsf/core" >
 
 <h:head>
 	<meta charset="UTF-8" />
 	<title>Bem-vindo!</title>
-
-	<h:outputStylesheet library="Listas" name="estilo.css" />
+	 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+	<h:outputStylesheet library="css" name="estilo.css" />
 </h:head>
 
 <body>
 
-	<header>
-		<h:graphicImage library="Listas" name="logo.png" />
-	</header>
-	<div id="conteudo">
 		<h:form id="form">
-
-			<p:megaMenu orientation="horizontal" autoDisplay="false"
-                        styleClass="Menu">
-                <f:facet name="start">
-                    <p:graphicImage name="images/primefaces-logo.svg" library="showcase"
-                                    width="150" />
-                </f:facet>
-                <p:submenu label="Tabelas" icon="pi pi-database">
-                    <p:column>
-                        <p:submenu label="Indicadores">
-                            <p:menuitem value="Lista de Indicadores"
-                                        outcome="/ListaDeIndicadores" />
-                        </p:submenu>
-                        <p:submenu label="Cotações">
-                            <p:menuitem value="Lista de Cotações" outcome="/ListaDeCotacoes" />
-                        </p:submenu>
-                    </p:column>
-                </p:submenu>
-                <p:submenu label="Gráfico" icon="pi pi-chart-line">
-                    <p:column>
-                        <p:submenu label="Gráfico de Cotações">
-                            <p:menuitem value="Análise de Cotações"  outcome="/GraficoDeCotacoes"/>
-                        </p:submenu>
-
-                    </p:column>
-                </p:submenu>
-
-                <p:submenu label="Configurações" icon="pi pi-fw pi-cog">
-                    <p:column>
-                        <p:submenu label="Úsuario">
-                            <p:menuitem value="Meus Dados"/>
-                            <p:menuitem value="Sair"/>
-                        </p:submenu>
-                    </p:column>
-                </p:submenu>
-            </p:megaMenu>
+		
+			<nav class="navbar navbar-dark bg-dark fixed-top">
+			
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a href="CadastroDeIndicadores.xhtml" class="btn btn-outline-light">
+      <i class="bi bi-house-door"></i> Tela Inicial</a>
+        <a class="navbar-title" href="#">Olá, Seja Bem Vindo!</a>
+        <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Listas</a>
+                <ul class="dropdown-menu dropdown-menu-dark ">
+                  <li><a class="dropdown-item" href="ListaDeIndicadores.xhtml">Indicadores</a></li>
+                  <li><a class="dropdown-item" href="ListaDeCotacoes.xhtml">Cotações</a></li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    
 		</h:form>
-	</div>
 
 	<footer> Indicadores e Cotacões </footer>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
