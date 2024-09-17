@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta charset="UTF-8" />
+        <title>Cadastro De Indicadores</title>
+
+        <f:metadata>
+            <f:viewAction action="#{cotacoesControllerBean.todosIndicadores()}" />
+        </f:metadata>
+        <h:outputStylesheet library="Listas" name="estilo.css" />
+    </h:head>
+
+    <body>
+
+        <header>
+            <h:graphicImage library="Listas" name="logo.png" />
+        </header>
+        <h:form id="form">
+
+            <p:megaMenu orientation="horizontal" autoDisplay="false"
+                        styleClass="Menu">
+                <f:facet name="start">
+                    <p:graphicImage name="images/primefaces-logo.svg" library="showcase"
+                                    width="150" />
+                </f:facet>
+                <p:menuitem value="Tela inicial" icon="pi pi-home"
+                            outcome="/CadastroDeIndicadores" />
+                <p:divider layout="vertical" />
+                <p:submenu label="Tabelas" icon="pi pi-database">
+                    <p:column>
+                        <p:submenu label="Indicadores">
+                            <p:menuitem value="Lista de Indicadores"
+                                        outcome="/ListaDeIndicadores" />
+                        </p:submenu>
+                        <p:submenu label="Cotações">
+                            <p:menuitem value="Lista de Cotações" outcome="/ListaDeCotacoes" />
+                        </p:submenu>
+                    </p:column>
+                </p:submenu>
+                <p:submenu label="Gráfico" icon="pi pi-chart-line">
+                    <p:column>
+                        <p:submenu label="Gráfico de Cotações">
+                            <p:menuitem value="Análise de Cotações"  outcome="/GraficoDeCotacoes"/>
+                        </p:submenu>
+
+                    </p:column>
+                </p:submenu>
+
+                <p:submenu label="Configurações" icon="pi pi-fw pi-cog">
+                    <p:column>
+                        <p:submenu label="Úsuario">
+                            <p:menuitem value="Meus Dados"/>
+                            <p:menuitem value="Sair"/>
+                        </p:submenu>
+                    </p:column>
+                </p:submenu>
+            </p:megaMenu>
+            <p:growl id="messages" showDetail="true" />
+			<p:defaultCommand target="searchCommandButton" />
+            <p:toolbar id="toolbar">
+                <p:toolbarGroup>
+                    <p:commandButton 
+    					title="Cadastro" 
+   	 					value="Adicionar"
+    					icon="pi pi-plus" 
+    					styleClass="buttonAdd"
+    					oncomplete="PF('infoDialogWidgetVar').show();"
+    					update="infoDialog toolbar" 
+    					process="@this">
+    					<p:ajax event="click" update="saveCommandButton" listener="#{cotacoesControllerBean.initIconSave()}" />
+				</p:commandButton>
+                    
+                    <p:commandButton 
+                        title="Edição" 
+                        value="Editar"
+                        icon="pi pi-pencil" 
+                        styleClass="buttonEdit" 
+                        disabled="#{not indicadoresControllerBean.indicadorSeleciona}"
+                        oncomplete="PF('indicadorDialogWidgetVar').show()" 
+                        update="indicadoresDialog"
+                        process="@this">
+                        <p:ajax event="click" update="saveCommandButton" listener="#{cotacoesControllerBean.initIconSave()}" />
+                        <p:resetInput target="indicadoresDialog"/>
+                    </p:commandButton>
+
+                    <p:commandButton 
+                        title="Excluir" 
+                        value="Excluir"
+                        icon="pi pi-trash" 
+                        styleClass="buttonDelete" 
+                        oncomplete="PF('confirmDialogWidgetVar').show()" 
+                        disabled="#{not indicadoresControllerBean.indicadorSeleciona}"
+                        process="@this" />
+
+                </p:toolbarGroup>
+
+                <p:toolbarGroup 
+                    align="right">
+                    <h:panelGroup styleClass="search-bar">
+
+                     <p:inputText 
+   							placeholder="Faça sua busca..."
+    						value="#{indicadoresControllerBean.termoPesquisa}"
+    						style="text-transform: uppercase;">
+    					<style>
+       						 input::placeholder {
+            				text-transform: none;
+        								}
+    					</style>
+					</p:inputText>
+
+                        <p:commandButton 
+                            id="searchCommandButton" 
+                            icon="pi pi-fw pi-search"
+                            actionListener="#{indicadoresControllerBean.pesquisa()}" 
+                            update="indicadoresDataTable" />
+
+                    </h:panelGroup>
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <p:dataTable 
+                value="#{indicadoresControllerBean.listaIndicadores}"
+                id="indicadoresDataTable" 
+                var="indicadores" 
+                paginator="true" 
+                rows="5"
+                paginatorPosition="bottom" 
+                sortBy="#{indicadores.id}" 
+                selectionMode="single" 
+                selection="#{indicadoresControllerBean.selectedIndicador}" 
+                rowKey="#{indicadores.id}">
+
+                <p:ajax event="rowSelect" update="form:toolbar" />
+
+                <p:ajax event="rowUnselect" update="form:toolbar" />		
+
+                <p:column headerText="ID">
+                    <h:outputText value="${indicadores.id}" />
+                </p:column>
+
+                <p:column headerText="Descrição" sortBy="#{indicadores.description}">
+                    <h:outputText value="#{indicadores.description}" />
+                </p:column>
+
+            </p:dataTable>
+            
+            		<!-- DIALOG CONFIRMATION -->
+            <p:dialog 
+    			id="confirmDialog"
+    			header="CONFIRMAÇÃO DE EXCLUSÃO"
+    			widgetVar="confirmDialogWidgetVar"
+    			
+    			modal="true"
+    			resizable="false"
+    			closeOnEscape="true"
+    			showEffect="fade"
+    			styleClass="center-dialog-header">
+    			
+    			 <p:defaultCommand target="yesButton" scope="confirmDialog"/>
+    			
+    			<h:panelGrid 
+                    id="confirmPanelGrid"
+                    columns="2"
+                    columnClasses="label-col, input-col"
+                    styleClass="modal-grid">
+                    
+    		<h:outputText 
+    			styleClass="confirmDialogText" 
+    			value="Este INDICADOR pode ter COTAÇÕES vinculadas, você realmente deseja EXCLUIR? " 
+    			escape="false" />
+    	
+    			<br/>
+    		<p:commandButton
+    				id="yesButton"
+        			value="Sim"
+        			icon="pi pi-check"
+        			oncomplete="PF('confirmDialogWidgetVar').hide(); "
+        			actionListener="#{indicadoresControllerBean.excluir}"
+        			process="@this"
+        			update="indicadoresDialog toolbar indicadoresDataTable messages"
+        			styleClass="button-confirm" >
+        	</p:commandButton>
+        	
+        	<p:commandButton
+    				id="noButton"
+        			value="Não" 
+        			icon="pi pi-times"
+        			oncomplete="PF('confirmDialogWidgetVar').hide(); "
+        			process="@this"
+        			update="indicadoresDialog toolbar"
+        			styleClass="button-cancel" >
+        	</p:commandButton>
+        		</h:panelGrid>
+			</p:dialog>
+            
+            	<!-- DIALOG INFO -->
+            <p:dialog 
+    			id="infoDialog"
+    			header="Atenção!"
+    			widgetVar="infoDialogWidgetVar"
+    			modal="true"
+    			resizable="false"
+    			closeOnEscape="true"
+    			showEffect="fade"
+    			styleClass="center-dialog-header">
+    			
+    			 <p:defaultCommand target="okButton" scope="infoDialog"/>
+    			
+    			<h:panelGrid 
+                    styleClass="modal-grid"
+                    id="infoPanelGrid">
+                    
+    		<h:outputText styleClass="infoDialogHeader-footer" value="Formato esperado: " escape="false"   />
+    		<h:outputText styleClass="infoDialogText" value="Moeda: ('AAA-BBB'); " escape="false" />
+    		<h:outputText styleClass="infoDialogText" value="Ação: Varia de acordo com cada título; " escape="false"  />
+    			<br/>
+        	<h:outputText styleClass="infoDialogHeader-footer" value="Clique em OK para continuar." escape="false"  />
+    		
+    		<p:commandButton
+    				id="okButton"
+        			value="OK" 
+        			oncomplete="PF('infoDialogWidgetVar').hide(); PF('indicadorDialogWidgetVar').show();"
+        			actionListener="#{indicadoresControllerBean.initNewIndicador()}"
+        			update="indicadoresDialog "
+        			process="@this"
+        			styleClass="button-info" >
+        		<p:resetInput target="indicadoresDialog"/>
+        	</p:commandButton>
+        		</h:panelGrid>
+			</p:dialog>
+            
+            <!-- DIALOG INDICADOR -->
+            <p:dialog 
+                header="Indicador"
+                id="indicadoresDialog"
+                widgetVar="indicadorDialogWidgetVar"
+                modal="true" 
+                resizable="false" 
+                closeOnEscape="true"
+                showEffect="fade"
+    			hideEffect="fade"
+    			styleClass="center-dialog-header">
+
+                <p:defaultCommand target="saveCommandButton" scope="indicadoresDialog"/>
+
+                <h:panelGrid 
+                    columns="2"
+                    columnClasses="label-col, input-col"
+                    styleClass="modal-grid"
+                    id="indicadorPanelGrid"
+                    rendered="#{indicadoresControllerBean.selectedIndicador ne null}">
+
+                    <p:outputLabel value="Nome: " for="description" />
+					<p:inputText 
+    					id="description"
+    					value="#{indicadoresControllerBean.selectedIndicador.description}"
+    					size="10"
+    					maxlength="7" 
+    					style="text-transform: uppercase;"
+    					required="true" />
+                	      
+                	  <div class="button-container">  
+                        <p:commandButton 
+                        	id="saveCommandButton" 
+                        	value="Salvar"
+                        	icon="#{cotacoesControllerBean.iconSave}"
+							actionListener="#{indicadoresControllerBean.salvar()}"
+                        	styleClass="button-modal" 
+	                    	update="indicadoresDataTable indicadorPanelGrid messages toolbar"
+							oncomplete="PF('indicadorDialogWidgetVar').hide()" 
+							process="indicadoresDialog" >
+							<p:ajax event="click" update="saveCommandButton" listener="#{cotacoesControllerBean.changeIconLoadSave()}" />
+							</p:commandButton>
+					</div>
+                </h:panelGrid>
+            </p:dialog>
+        </h:form>
+
+        <footer> Lista De Indicadores </footer>
+    </body>
+
+</html>

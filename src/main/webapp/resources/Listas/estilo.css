@@ -1,0 +1,234 @@
+@charset "utf-8";
+
+*{
+	padding: 0px;
+	margin:0px;
+}
+body {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal
+}
+
+header {
+	padding: 5px;
+	margin-bottom: 20px;
+	height: 30px;
+	background-color: #545454;
+	color: #fff;
+	box-shadow: 0px 2px 2px #ccc
+}
+
+#form {
+	padding: 0px 8px;
+	text-align: left;
+}
+
+footer {
+	text-align:center;
+	border-top: 1px solid #ccc;
+	padding: 5px 8px;
+	margin-top: 20px;
+	margin-bottom: 10px
+}
+
+h1 {
+	font-size: 24px;
+	font-weight: 500;
+	padding: 0px;
+	margin: 0px;
+	margin-bottom: 10px
+}
+
+body #form .Menu {
+	margin: 20px 50px;
+	
+	
+}
+
+body #form .buttonAdd {
+	margin-left: 5px;
+	background-color: #28a745;
+    border-color: #28a745;
+	
+}
+
+body #form .buttonAdd:hover {
+	background-color:#006400;
+	border-color: black;
+}
+
+body #form .buttonEdit {
+	margin-left: 5px;
+	background-color: #ffc107;
+    border-color: #ffc107;
+	
+}
+
+body #form .buttonEdit:hover {
+	background-color: #DAA520;
+	border-color: black;
+} 
+body #form .buttonDelete {
+	margin-left: 5px;
+	background-color: #FF0000;
+    border-color: #dc3545;
+	
+}
+
+body #form .buttonDelete:hover {
+	background-color: #dc3545;
+}
+
+body #form .search-bar {
+    display: flex ;
+    align-items: center;
+    margin: 0px 10px;
+}
+
+body #form .search-bar input {
+    padding: 10px 10px ;
+    margin: 0px 10px;
+}
+
+body #form .modal-grid {
+    width: 100%;
+    padding: 0px;
+}
+
+body #form .modal-grid .label-col {
+    text-align: left;
+    font-weight: bold;
+    padding: 2px;
+    vertical-align: middle;
+    border: none;
+}
+
+body #form .modal-grid .input-col {
+    padding: 5px;
+    border: none;
+}
+
+body #form .modal-grid input, 
+body #form .modal-grid select, 
+body #form .modal-grid .ui-inputnumber,
+body #form .modal-grid .ui-calendar {
+    width: 100%;
+}
+
+body #form .button-modal {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    margin: 20px 0px 0px 0px ; 
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex; 
+}
+
+body #form .button-container {
+    text-align: center; 
+}
+
+body #form .button-modal:hover {
+    background-color: #0056b3;
+}
+
+body #form .button-info {
+    background-color: #FFA500;
+    border: none;
+    color: white;
+    margin: 10px auto;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block; 
+    margin: 10px auto;
+}
+
+body #form .button-info:hover {
+    background-color: #DAA520;
+}
+
+body #form .button-confirm {
+    background-color: #28a745;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+body #form .button-cancel {
+    background-color: #FF0000;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+body #form .button-API {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    margin: 20px 0px 0px 0px ; 
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex; 
+}
+
+body #form .button-API-icon .ui-icon {
+    color: #ffffff; 
+    font-size: 15px;
+}
+
+body #form .button-API:hover {
+    background-color: #0056b3;
+}
+
+body #form .infoDialogHeader-footer {
+	text-align: center;
+	justify-content: center;
+	display: flex;
+	font-size: 1.1em; 
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+
+body #form .infoDialogText {
+	text-align: center;
+	justify-content: center;
+	display: flex;
+	font-size: 0.9em; 
+    font-weight: bold;
+    color: red;
+    margin-bottom: 0.5em;
+}
+
+body #form .confirmDialogText {
+	text-align: center;
+	justify-content: center;
+	display: flex;
+	font-size: 0.9em; 
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+
+body #form .center-dialog-header {
+	text-align: center;
+    width: 100%;
+}
+
+
+   
+
+
+

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta charset="UTF-8"/>
+        <title>Cadastro De Cotações</title>
+
+        <f:metadata>
+            <f:viewAction action="#{cotacoesControllerBean.todasCotacoes()}"/>
+        </f:metadata>
+        <h:outputStylesheet library="Listas" name="estilo.css"/>
+    </h:head>
+
+    <h:body>
+
+        <header>
+            <h:graphicImage library="Listas" name="logo.png"/>
+        </header>
+
+        <h:form id="form">
+
+            <p:megaMenu orientation="horizontal" autoDisplay="false"
+                        styleClass="Menu">
+                <f:facet name="start">
+                    <p:graphicImage name="images/primefaces-logo.svg" library="showcase"
+                                    width="150" />
+                </f:facet>
+                <p:menuitem value="Tela inicial" icon="pi pi-home"
+                            outcome="/CadastroDeIndicadores" />
+                <p:divider layout="vertical" />
+                <p:submenu label="Tabelas" icon="pi pi-database">
+                    <p:column>
+                        <p:submenu label="Indicadores">
+                            <p:menuitem value="Lista de Indicadores"
+                                        outcome="/ListaDeIndicadores" />
+                        </p:submenu>
+                        <p:submenu label="Cotações">
+                            <p:menuitem value="Lista de Cotações" outcome="/ListaDeCotacoes" />
+                        </p:submenu>
+                    </p:column>
+                </p:submenu>
+                <p:submenu label="Gráfico" icon="pi pi-chart-line">
+                    <p:column>
+                        <p:submenu label="Gráfico de Cotações">
+                            <p:menuitem value="Análise de Cotações"  outcome="/GraficoDeCotacoes"/>
+                        </p:submenu>
+
+                    </p:column>
+                </p:submenu>
+
+                <p:submenu label="Configurações" icon="pi pi-fw pi-cog">
+                    <p:column>
+                        <p:submenu label="Úsuario">
+                            <p:menuitem value="Meus Dados"/>
+                            <p:menuitem value="Sair"/>
+                        </p:submenu>
+                    </p:column>
+                </p:submenu>
+            </p:megaMenu>
+
+			<p:defaultCommand target="searchCommandButton"/>
+
+            <p:toolbar id="toolbar">
+                <p:toolbarGroup>
+                    <p:commandButton
+                        title="Cadastro"
+                        value="Adicionar"
+                        icon="pi pi-plus"
+                        styleClass="buttonAdd"
+                        actionListener="#{cotacoesControllerBean.initNewCotacao()}"
+                        oncomplete="PF('cotacaoDialogWidgetVar').show()"
+                        update="cotacoesDialog"
+                        process="@this">
+                        <p:ajax event="click" update="saveCommandButton" listener="#{cotacoesControllerBean.initIconSave()}" />
+                        <p:resetInput target="cotacoesDialog "/>
+                    </p:commandButton>
+                    
+                    <p:commandButton
+                    	title="Abastecer"
+                    	value="API"
+                    	icon="pi pi-arrow-circle-down"
+                    	styleClass="buttonAdd"
+                    	actionListener="#{cotacoesControllerBean.initNewBuscaAPI()}"
+                    	oncomplete="PF('APIWidgetVar').show()"
+                    	update="APIDialog"
+                    	process="@this">
+                    	<p:ajax event="click" update="BuscarAPI" listener="#{cotacoesControllerBean.initIconSearch()}" />
+                    </p:commandButton>
+
+                    <p:commandButton
+                        title="Edição"
+                        value="Editar"
+                        icon="pi pi-pencil"
+                        styleClass="buttonEdit"
+                        disabled="#{not cotacoesControllerBean.cotacaoSeleciona}"
+                        oncomplete="PF('cotacaoDialogWidgetVar').show()"
+                        update="cotacoesDialog "
+                        process="@this">
+                        <p:ajax event="click" update="saveCommandButton" listener="#{cotacoesControllerBean.initIconSave()}" />
+                        <p:resetInput target="cotacoesDialog"/>
+                    </p:commandButton>
+
+                     <p:commandButton 
+                        title="Excluir" 
+                        value="Excluir"
+                        icon="pi pi-trash" 
+                        styleClass="buttonDelete" 
+                        oncomplete="PF('confirmDialogWidgetVar').show()" 
+                        disabled="#{not cotacoesControllerBean.cotacaoSeleciona}"
+                        process="@this" />
+                        
+                        
+                </p:toolbarGroup>
+
+                <p:toolbarGroup align="right">
+                    <h:panelGroup styleClass="search-bar">
+                       
+                         <p:inputText 
+   							placeholder="Faça sua busca..."
+    						value="#{cotacoesControllerBean.termoPesquisa}"
+    						style="text-transform: uppercase;">
+    					<style> 
+    						input::placeholder {text-transform: none;}
+    					</style>
+					</p:inputText>
+                        
+                         <p:commandButton
+                         	id="searchCommandButton"
+                            icon="pi pi-fw pi-search"
+                            actionListener="#{cotacoesControllerBean.pesquisa()}"
+                            update="cotacoesDataTable"/>
+                    </h:panelGroup>
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <p:dataTable
+                value="#{cotacoesControllerBean.listaCotacoes}"
+                id="cotacoesDataTable"
+                var="cotacoes"
+                paginator="true"
+                rows="5"
+                paginatorPosition="bottom"
+                sortBy="#{cotacoes.id}"
+                selectionMode="single"
+                selection="#{cotacoesControllerBean.selectedCotacao}"
+                rowKey="#{cotacoes.id}">
+
+                <p:ajax event="rowSelect" update="form:toolbar"/>
+                <p:ajax event="rowUnselect" update="form:toolbar"/>
+
+                <p:column 
+                	headerText="Indicador"
+                	sortBy="#{cotacoes.indicadores.description}">
+                    <h:outputText value="#{cotacoes.indicadores.description}"/>
+                </p:column>
+
+                <p:column 
+                	headerText="Valor" 
+                	sortBy="#{cotacoes.valor}">
+                    <h:outputText value="#{cotacoes.valor}">
+                    <f:convertNumber 
+               	 		type="currency" 
+                		currencySymbol="R$" 
+                		maxFractionDigits="2"
+                		locale="pt_BR"/>
+                    </h:outputText>
+                </p:column>
+
+                 <p:column headerText="Data da cotação" sortBy="#{cotacoes.dataHora}">
+        <h:outputText value="#{cotacoesControllerBean.formatLocalDateTime(cotacoes.dataHora)}">
+        </h:outputText>
+    </p:column>
+           </p:dataTable>
+           
+           			<!-- DIALOG CONFIRMATION -->
+            <p:dialog 
+    			id="confirmDialog"
+    			header="CONFIRMAÇÃO DE EXCLUSÃO"
+    			widgetVar="confirmDialogWidgetVar"
+    			modal="true"
+    			resizable="false"
+    			closeOnEscape="true"
+    			showEffect="fade"
+    			styleClass="center-dialog-header">
+    			
+    			 <p:defaultCommand target="yesButton" scope="confirmDialog"/>
+    			
+    			<h:panelGrid 
+                    id="confirmPanelGrid"
+                    columns="2"
+                    columnClasses="label-col, input-col"
+                    styleClass="modal-grid">
+                    
+    		<h:outputText 
+    			styleClass="confirmDialogText" 
+    			value="Você realmente deseja EXCLUIR essa cotação? " 
+    			escape="false" />
+    	
+    			<br/>
+    		<p:commandButton
+    				id="yesButton"
+        			value="Sim"
+        			icon="pi pi-check"
+        			oncomplete="PF('confirmDialogWidgetVar').hide(); "
+        			actionListener="#{cotacoesControllerBean.excluir}"
+        			process="@this"
+        			update="toolbar cotacoesDataTable messages"
+        			styleClass="button-confirm" >
+        	</p:commandButton>
+        	
+        	<p:commandButton
+    				id="noButton"
+        			value="Não"
+        			icon="pi pi-times"
+        			oncomplete="PF('confirmDialogWidgetVar').hide(); "
+        			process="@this"
+        			update="toolbar cotacoesDataTable"
+        			styleClass="button-cancel" >
+        	</p:commandButton>
+        		</h:panelGrid>
+			</p:dialog>
+
+				<!-- DIALOG API -->
+			<p:dialog
+				header="Buscar da API"
+				id="APIDialog"
+				widgetVar="APIWidgetVar"
+				modal="true"
+				resizable="false"
+                closeOnEscape="true"
+                styleClass="center-dialog-header">
+						
+					<p:defaultCommand target="BuscarAPI" scope="APIDialog"/>
+					
+					<h:panelGrid
+                    columns="2"
+                    columnClasses="label-col, input-col"
+                    id="APIPanelGrid"
+                    rendered="#{cotacoesControllerBean.selectedIndicador ne null}"
+                    styleClass="modal-grid">
+
+                    <p:outputLabel value="Indicador: " for="indicadorAPI"/>
+                    <p:selectOneMenu
+                        id="indicadorAPI"
+                        value="#{cotacoesControllerBean.selectedIndicador}"
+                        styleClass="menu-modal"
+                        converter="indicadoresConverter"
+                        style="width: 200px;"
+                        required="true">
+                        <f:selectItem itemLabel="Selecione..."
+                                      noSelectionOption="true"
+                                      itemValue=""/>
+                        <f:selectItems value="#{cotacoesControllerBean.listaIndicadores}" var="indicador"
+                                       itemLabel="#{indicador.description}" itemValue="#{indicador}"/>
+                    </p:selectOneMenu>
+                    
+                    <p:outputLabel value="API: " for="API" />
+                    <p:selectOneMenu
+            			id="API"
+            			styleClass="menu-modal"
+            			required="true"
+            			style="width: 200px;"
+            			value="#{cotacoesControllerBean.selectedAPI}">
+            		<f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
+           			<f:selectItem itemLabel="Ações - Alpha Vantage" itemValue="1" />
+           	 		<f:selectItem itemLabel="Moedas - Awesome" itemValue="2" />
+           	 		<p:ajax update="dataInicial dataFinal" process="@this" />
+        			</p:selectOneMenu>
+
+        		<p:outputLabel value="Data Inicial: " for="dataInicial" />
+       			<p:datePicker
+            			id="dataInicial"
+            			showButtonBar="true"
+            			timeControlType="spinner"
+            			showTime="false"
+            			value="#{cotacoesControllerBean.dataInicial}"
+            			disabled="#{cotacoesControllerBean.selectedAPI ne '2'}"
+            			required="true" />
+
+        		<h:outputLabel value="Data Final: " for="dataFinal" />
+        		<p:datePicker
+            		id="dataFinal"
+            		showButtonBar="true"
+            		timeControlType="spinner"
+            		showTime="false"
+            		value="#{cotacoesControllerBean.dataFinal}"
+            		disabled="#{cotacoesControllerBean.selectedAPI ne '2'}"
+            		required="true"/>
+
+				<div class="button-container"> 
+                    <p:commandButton 
+                        id="BuscarAPI"
+                        icon="#{cotacoesControllerBean.iconSearch}"
+                        value="Buscar"
+                        actionListener="#{cotacoesControllerBean.buscarAPI(cotacoesControllerBean.selectedIndicador.description, cotacoesControllerBean.selectedAPI, cotacoesControllerBean.dataInicial, cotacoesControllerBean.dataFinal)}"
+                        styleClass="button-API "
+                        update="cotacoesDataTable APIPanelGrid messages toolbar"
+                        oncomplete="PF('APIWidgetVar').hide()"
+                        process="APIDialog ">
+                        <p:ajax event="click" update="BuscarAPI" listener="#{cotacoesControllerBean.changeIconLoad()}" />
+                        </p:commandButton>
+				</div>
+                </h:panelGrid>		
+			</p:dialog>
+
+				<!-- DIALOG PARA ADICIONAR COTAÇÃO -->
+            <p:dialog
+                header="Cotação"
+                id="cotacoesDialog"
+                widgetVar="cotacaoDialogWidgetVar"
+                modal="true"
+                resizable="false"
+                closeOnEscape="true"
+                styleClass="center-dialog-header">
+
+                	<p:defaultCommand target="saveCommandButton" scope="cotacoesDialog"/>
+
+                <h:panelGrid
+                    columns="2"
+                    columnClasses="label-col, input-col"
+                    id="cotacoesPanelGrid"
+                    rendered="#{cotacoesControllerBean.selectedCotacao ne null}"
+                    styleClass="modal-grid">
+
+                    <p:outputLabel value="Indicador: " for="indicador"/>
+                    <p:selectOneMenu
+                        id="indicador"
+                        size="20"
+                        value="#{cotacoesControllerBean.selectedCotacao.indicadores}"
+                        styleClass="menu-modal"
+                        converter="indicadoresConverter"
+                        required="true"
+                        style="width: 200px;">
+                        <f:selectItem itemLabel="Selecione..."
+                                      noSelectionOption="true"
+                                      itemValue=""
+                                      itemDisabled="#{not empty cotacoesControllerBean.selectedCotacao.indicadores}"/>
+                        <f:selectItems value="#{cotacoesControllerBean.listaIndicadores}" var="indicador"
+                                       itemLabel="#{indicador.description}" itemValue="#{indicador}"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Data e Hora:" for="dateTime"/>
+                    <p:datePicker
+    					id="dateTime"
+    					value="#{cotacoesControllerBean.selectedCotacao.dataHora}"
+    					showTime="true"
+    					pattern="dd/MM/yyyy HH:mm:ss"
+    					size="20"
+    					required="true"
+    					showButtonBar="true"
+    					timeControlType="spinner"/>
+							
+                    <p:outputLabel value="Valor:" for="valor"/>
+                    <p:inputNumber
+                        id="valor"
+                        value="#{cotacoesControllerBean.selectedCotacao.valor}"
+                        symbol="R$"
+                        symbolPosition="p"
+                        decimalSeparator=","
+                        thousandSeparator="."
+                        required="true"/>
+
+				<div class="button-container"> 
+                    <p:commandButton
+                        id="saveCommandButton"
+                        value="Salvar"
+                        icon="#{cotacoesControllerBean.iconSave}"
+                        actionListener="#{cotacoesControllerBean.salvar()}"
+                        styleClass="button-modal"
+                        update="cotacoesDataTable cotacoesPanelGrid messages toolbar"
+                        oncomplete="PF('cotacaoDialogWidgetVar').hide()"
+                        process="cotacoesDialog ">
+                        <p:ajax event="click" update="saveCommandButton" listener="#{cotacoesControllerBean.changeIconLoadSave()}" />
+                        </p:commandButton>
+                  </div>
+                </h:panelGrid>
+            </p:dialog>
+
+            <p:growl id="messages" showDetail="true" />
+        </h:form>
+        	<footer> Lista De Cotações </footer>
+    </h:body>
+
+</html>
