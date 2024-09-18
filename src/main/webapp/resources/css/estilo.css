@@ -1,13 +1,120 @@
 @charset "utf-8";
 
- .btn-outline-light {
-	margin-right: 1050px;
-	color: white;
+ /* CONFIG GLOBAL*/
+	*{
+		margin: 0px;
+		padding: 0px;
+		font-family: monospace;
+		font-size: 15px;
 }
 
-.navbar-title {
-	color: white;
-	margin-left: -150px;
-	font-family:sans-serif;
-	text-decoration: none;
+	/*CONFIG NAVBAR */
+ 	.navbar-config {
+		display: flex;
+		width: 100%;
+		justify-content: space-between; 
+    	align-items: center;
 }
+
+	#btnOffCanva{
+		margin-right: 5px;
+}
+
+	.navbar-right  {
+		justify-content: flex-end;
+}
+
+	#btnSignIn {
+		margin-right: 5px;
+}
+
+	.navbar-left {
+		justify-content: flex-start;
+}
+
+		/* NAV-OFFCANVA*/
+		
+	#btnMenuNav{
+		color: white;
+		font-size: 15px;
+}
+	.offcanvas-body {
+    	display: flex;
+    	flex-direction: column;
+    	justify-content: space-between;
+    	height: 100vh; 
+}
+
+
+	#useful-menu-center {
+    	flex-direction: column;
+    	align-items: center; 
+}
+
+	#useful-menu-end {
+    	display: flex;
+    	justify-content: flex-start; 
+    	margin-top: auto; 
+}
+
+  	.dropdown-item {
+		font-size: 15px;
+}
+
+	#OffCanvaDropdownItem {
+		color: #F5FFFA;
+		font-size: 18px;
+}
+	#OffCanvaDropdownItem:hover {
+		color: #A9A9A9;
+		
+}
+
+		/* DataTable*/
+		
+	#dataTable {
+	display: flex;
+	width: 100%;
+	}
+		
+	.table-hover {
+		justify-content: center;
+		margin: 150px 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Footer*/
+
+	footer {
+		text-align:center;
+		border-top: 1px solid #ccc;
+		padding: 5px 8px;
+		margin-top: 20px;
+		margin-bottom: 10px
+	}
+
+
+
