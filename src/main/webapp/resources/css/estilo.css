@@ -8,6 +8,11 @@
 		font-size: 15px;
 }
 
+	body {
+	background-color:#393C49 !important ;
+}
+	
+
 	/*CONFIG NAVBAR */
  	.navbar-config {
 		display: flex;
@@ -15,22 +20,72 @@
 		justify-content: space-between; 
     	align-items: center;
 }
-
-	#btnOffCanva{
-		margin-right: 5px;
+	 .navbar  {
+	background-color: #262831;
 }
+
+	#btnOffCanva {
+    	background-color: #EA7C69; 
+    	border: none; 
+    	border-radius: 0.25rem; 
+    	padding: 2px 18px; 
+    	color: #fff;
+    	margin-right: 5px;
+}
+
+	#btnOffCanva:hover {
+		background-color: #FF8C00;
+		
+	}
+	
+	#btnOffCanva i {
+		color: white;
+		font-size: 20px;
+	}
+
 
 	.navbar-right  {
 		justify-content: flex-end;
 }
 
 	#btnSignIn {
-		margin-right: 5px;
+		color: #FF8C00;
+    	border: 1px solid #FF8C00;
+}
+
+	#btnSignIn:hover {
+		color: white;
+    	background-color: #FF8C00;
+}
+
+	#btnRegister {
+		color: #FF8C00;
+    	border: 1px solid #FF8C00;
+}
+
+	#btnRegister:hover {
+		color: white;
+    	background-color: #FF8C00;
 }
 
 	.navbar-left {
 		justify-content: flex-start;
 }
+
+    #btnHomeScreen {
+    	color: #FF8C00;
+    	border: 1px solid #FF8C00;
+    	
+ }
+ 
+ 	#btnHomeScreen i {
+    	font-size: 18px;
+ }
+ 
+  #btnHomeScreen:hover {
+    	color: white;
+    	background-color: #FF8C00;
+ }
 
 		/* NAV-OFFCANVA*/
 		
@@ -39,22 +94,31 @@
 		font-size: 15px;
 }
 	.offcanvas-body {
-    	display: flex;
+   		display: flex;
     	flex-direction: column;
     	justify-content: space-between;
-    	height: 100vh; 
+    	height: 100vh;
 }
 
-
-	#useful-menu-center {
+	#useful-menu-center, #useful-menu-graph {
     	flex-direction: column;
-    	align-items: center; 
+    	align-items: center;
+}
+
+	#useful-menu-graph {
+    	margin-bottom: auto;
 }
 
 	#useful-menu-end {
-    	display: flex;
-    	justify-content: flex-start; 
-    	margin-top: auto; 
+    	position: relative;
+}
+
+	#useful-menu-end .dropdown-menu {
+    	position: absolute; 
+    	bottom: 100%; 
+    	left: 0;
+    	transform: translateY(-5px);
+    	width: 100%;
 }
 
   	.dropdown-item {
@@ -72,34 +136,80 @@
 
 		/* DataTable*/
 		
-	#dataTable {
-	display: flex;
-	width: 100%;
+	.table-conteiner {
+		display: flex;
+    	flex-direction: column;
+    	align-items: flex-end;
+    	width: 100%;
+    	margin-top: 80px;
 	}
+	
+	
+	.table-conteiner .button-container-table {
+		margin: 15px 40px 15px 0px;
+	}
+	
+	#btnAdd {
+		color: #FF8C00;
+		padding: 5px;
 		
-	.table-hover {
-		justify-content: center;
-		margin: 150px 20px;
+	}
+	
+	 #btnAdd:hover {
+	 	color: white;
+    	background-color: #FF8C00;
+	}
+	
+	#btnAdd i{
+		font-size: 17px;
+	
+}
+		
+	#dataTable {
+		display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-top: 0px;
+        border-collapse: collapse;
+        }
+	
+	#dataTable table {
+    	width: 95%; 
 }
 
+	#dataTable thead th {
+    	background-color: #ff8d31;
+    	color: black; 
+    	text-align: center; 
+    	padding: 10px;
+}
 
+	#dataTable .table-hover td:nth-child(1),
+	#dataTable .table-hover th:nth-child(1) {
+    	text-align: center;
+    	width: 10%;
+}
 
+	#dataTable .table-hover td:nth-child(2),
+	#dataTable .table-hover th:nth-child(2) {
+    	text-align: center;
+    	width: 80%;
+}
 
+	#dataTable .table-hover td:nth-child(3),
+	#dataTable .table-hover th:nth-child(3)  {
+    	text-align: center;
+    	width: 10%;
+}
 
+	#dataTable .table-hover td:nth-child(3) .icon-trash {
+    	color: red; 
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+	#dataTable .table-hover td:nth-child(3) .icon-edit{
+    	color: black; 
+}
 
 
 
@@ -109,6 +219,7 @@
 /* Footer*/
 
 	footer {
+		color: white;
 		text-align:center;
 		border-top: 1px solid #ccc;
 		padding: 5px 8px;
