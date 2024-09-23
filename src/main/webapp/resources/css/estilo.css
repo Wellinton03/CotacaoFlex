@@ -9,7 +9,7 @@
 }
 
 	body {
-	background-color:#393C49 !important ;
+	background-color:#1F1D2B!important ;
 }
 	
 
@@ -47,34 +47,9 @@
 	.navbar-right  {
 		justify-content: flex-end;
 }
-
-	#btnSignIn {
-		color: #FF8C00;
-    	border: 1px solid #FF8C00;
-}
-
-	#btnSignIn:hover {
-		color: white;
-    	background-color: #FF8C00;
-}
-
-	#btnRegister {
-		color: #FF8C00;
-    	border: 1px solid #FF8C00;
-}
-
-	#btnRegister:hover {
-		color: white;
-    	background-color: #FF8C00;
-}
-
-	.navbar-left {
-		justify-content: flex-start;
-}
-
     #btnHomeScreen {
     	color: #FF8C00;
-    	border: 1px solid #FF8C00;
+    	border: 1.5px solid #FF8C00;
     	
  }
  
@@ -87,11 +62,38 @@
     	background-color: #FF8C00;
  }
 
+	#btnSignIn {
+		color: #FF8C00;
+    	border: 1.5px solid #FF8C00;
+}
+
+	#btnSignIn:hover {
+		color: white;
+    	background-color: #FF8C00;
+}
+
+	#btnRegister {
+		color: #FF8C00;
+    	border: 1.5px solid #FF8C00;
+}
+
+	#btnRegister:hover {
+		color: white;
+    	background-color: #FF8C00;
+}
+
+	.navbar-left {
+		justify-content: flex-start;
+}
+
+
 		/* NAV-OFFCANVA*/
 		
 	#btnMenuNav{
 		color: white;
 		font-size: 15px;
+		background-color: #FF8C00;
+		border: 1px solid #FF8C00;
 }
 	.offcanvas-body {
    		display: flex;
@@ -121,16 +123,29 @@
     	width: 100%;
 }
 
-  	.dropdown-item {
+	ul.dropdown-menu, ul.dropdown-menu .dropdown-item {
+    	border: none ;
+    	box-shadow: none ;
+    	background-color: #2D303E ;
+}
+
+	
+  	 .dropdown-menu .dropdown-item {
 		font-size: 15px;
+		background-color: #2D303E ;
+		color: #E0E6E9;
+}
+
+	.dropdown-menu .dropdown-item:hover {
+		color: #e04125;
 }
 
 	#OffCanvaDropdownItem {
-		color: #F5FFFA;
+		color: #ff9f2b;
 		font-size: 18px;
 }
 	#OffCanvaDropdownItem:hover {
-		color: #A9A9A9;
+		color: #e67e00;
 		
 }
 
@@ -139,21 +154,53 @@
 	.table-conteiner {
 		display: flex;
     	flex-direction: column;
-    	align-items: flex-end;
+    	align-items: flex-start;
     	width: 100%;
     	margin-top: 80px;
 	}
 	
 	
 	.table-conteiner .button-container-table {
-		margin: 15px 40px 15px 0px;
+		margin: 15px 0px -20px 35px;
 	}
+	
+	.table-conteiner .search-container-table {
+		margin: -10px 40px 15px 0px;
+		margin-left: auto;
+	}
+	
+	#searchIcon {
+		background-color: #30323d ;
+		border: none;
+	}
+	
+	 .bi-search {
+		color: #FFFFFF ;
+	}
+	
+	.input-group {
+		border: none;
+	}
+	
+	.input-search {
+		background-color: #393C49;
+		padding: 5px;
+		color: white;
+		border-radius: 0px 10px 10px 0px;
+		border: none;
+		outline: none;
+	}
+	
 	
 	#btnAdd {
 		color: #FF8C00;
 		padding: 5px;
-		
+		border: 1.5px solid #FF8C00;
+		border-radius: 5px;
+		text-decoration: none;
 	}
+	
+	
 	
 	 #btnAdd:hover {
 	 	color: white;
@@ -163,6 +210,23 @@
 	#btnAdd i{
 		font-size: 17px;
 	
+}
+	#btnAddAPI {
+		color: #FF8C00;
+		padding: 5px;
+		border: 1.5px solid #FF8C00;
+		border-radius: 5px;
+		text-decoration: none;
+	}
+	
+	 #btnAddAPI:hover {
+	 	color: white;
+    	background-color: #FF8C00;
+	}
+	
+	#btnAddAPI i{
+		font-size: 17px;
+		margin-right: 5px;
 }
 		
 	#dataTable {
@@ -188,30 +252,99 @@
 	#dataTable .table-hover td:nth-child(1),
 	#dataTable .table-hover th:nth-child(1) {
     	text-align: center;
-    	width: 10%;
+    	width: 20%;
 }
 
 	#dataTable .table-hover td:nth-child(2),
 	#dataTable .table-hover th:nth-child(2) {
     	text-align: center;
-    	width: 80%;
+    	width: 20%;
 }
 
 	#dataTable .table-hover td:nth-child(3),
 	#dataTable .table-hover th:nth-child(3)  {
     	text-align: center;
+    	width: 25%;
+}
+
+#dataTable .table-hover td:nth-child(4),
+	#dataTable .table-hover th:nth-child(4)  {
+    	text-align: center;
     	width: 10%;
 }
 
-	#dataTable .table-hover td:nth-child(3) .icon-trash {
+	#dataTable .table-hover td:nth-child(4) .icon-trash {
     	color: red; 
 }
 
-	#dataTable .table-hover td:nth-child(3) .icon-edit{
+	#dataTable .table-hover td:nth-child(4) .icon-edit{
     	color: black; 
 }
 
+#dataTable .table-hover td:nth-child(3) .icon-trash-indicator {
+    	color: red; 
+}
 
+	#dataTable .table-hover td:nth-child(3) .icon-edit-indicator{
+    	color: black; 
+}
+
+		/* TELA DE INDICADORES */
+
+	.conteiner-content {
+		display: flex;
+		height: 100vh;
+		width: 100%;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.box-indicator {
+		background-color: #2D303E;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 50%;
+		height: 50%;
+		border: 2px groove orange;
+		border-radius: 10px;
+	}
+	
+	.input-container {
+    	display: flex;
+    	align-items: center;
+    	margin-bottom: 40px; 
+}
+	
+	.label-indicator {
+		color:white;
+		margin-right: 5px;
+		
+	}
+	
+	.input-indicator {
+    	background-color: #4d5162;
+    	color: white ;
+    	border-radius: 10px;
+    	border: none;
+		outline: none;
+    	padding: 5px;
+}
+	
+	.save-indicator {
+		color: white;
+		background-color: #EA7C69;
+		padding: 7px;
+		border-radius: 5px;
+		border: none;
+		box-shadow: 0px 0px 20px rgba(255, 165, 0, 0.3);
+    	transition: box-shadow 0.3s ease;
+	}
+	
+	.save-indicator:hover {
+    	box-shadow: 0px 0px 25px rgba(255, 165, 0, 0.5);
+}
 
 
 

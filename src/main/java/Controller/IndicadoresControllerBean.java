@@ -3,7 +3,9 @@ package Controller;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -23,8 +25,20 @@ public class IndicadoresControllerBean implements Serializable {
 	
 	private String termoPesquisa;
 	
+	@ManagedProperty(value = "#{param.id}")
+	private Long indicadorId;
+	
 	@Inject
 	private IndicadoresService indicadorService;
+	
+	  @PostConstruct
+	    public void init() {
+		  if (indicadorId != null) {
+		        selectedIndicador = indicadorService.porId(indicadorId);
+		    } else {
+		        selectedIndicador = new Indicadores(); 
+		    }
+	    }	
 	
  	public List<Indicadores> getListaIndicadores() {
 		if (listaIndicadores == null) {
@@ -39,10 +53,10 @@ public class IndicadoresControllerBean implements Serializable {
  	}
  	
  	public void pesquisa() {
- 		listaIndicadores = indicadorService.buscar(termoPesquisa);
- 	}
+ 			listaIndicadores = indicadorService.buscar(termoPesquisa);
+  	}
 
- 	public void salvar() {
+ 	public String salvar() {
  	    if (selectedIndicador != null) {
  	    		
  	    	 if (selectedIndicador.getDescription() != null) {
@@ -53,12 +67,9 @@ public class IndicadoresControllerBean implements Serializable {
  	        
  	        selectedIndicador = null;
  	        
- 	        FacesContext.getCurrentInstance().addMessage(null,
- 	        		new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Indicador salvo com sucesso!"));
- 	    } else {
- 	    	FacesContext.getCurrentInstance().addMessage(null,
-	                new FacesMessage(FacesMessage.SEVERITY_INFO, "Falha", "Indicador não foi salvo"));
- 	    }
+ 	        
+ 	    } 
+ 	    return "ListaDeIndicadores?faces-redirect=true";
  	}
 
 	public void excluir() {

@@ -50,7 +50,7 @@
              
               <li id="useful-menu-center" class="nav-item dropdown">
                 <a id="OffCanvaDropdownItem" class=" nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" ><i class="bi bi-card-list"/> Listas</a>
-                <ul class="dropdown-menu dropdown-menu-dark">
+                <ul id="item-drop" class="dropdown-menu ">
                   <li><a class="dropdown-item" href="ListaDeIndicadores.xhtml"> Indicadores</a></li>
                   <li><a class="dropdown-item" href="ListaDeCotacoes.xhtml">Cotações</a></li>
                 </ul>
@@ -78,11 +78,26 @@
     </nav>
     
     <div class="table-conteiner">
-    <div class="button-container-table">
-   		<a id="btnAdd" href="#"><i class="bi bi-plus"></i>Adicionar</a>
-    </div>
+    
+    	<div class="button-container-table">
+   			<a id="btnAdd" href="Indicador.xhtml"><i class="bi bi-plus"></i>Adicionar</a>
+    	</div>
+    	
+    	<div class="search-container-table">
+    		<div class="input-group">
+        		<span id="searchIcon" class="input-group-text">
+            		<i class="bi bi-search"></i>
+        		</span>
+        		<h:inputText class="input-search" value="#{indicadoresControllerBean.termoPesquisa}" >
+    			<f:ajax event="keyup" 
+             		listener="#{indicadoresControllerBean.pesquisa()}" 
+             		render="resultTable" />
+				</h:inputText>
+    	</div>
+	</div>
+    
    <div id="dataTable">
-    <h:dataTable value="#{indicadoresControllerBean.listaIndicadores}" var="indicadores" class="table table-hover">
+    <h:dataTable id ="resultTable" value="#{indicadoresControllerBean.listaIndicadores}" var="indicadores" class="table table-hover">
     
     <h:column >
         <f:facet name="header">
@@ -99,14 +114,13 @@
     </h:column>
     
     <h:column >
-   	 	<a href="#" class="icon-edit"><i class="bi bi-pencil-square"></i></a>	
-   		<a class="icon-trash" href="#" ><i class="bi bi-trash3"></i></a>
+   	 	<a class="icon-edit-indicator" href="Indicador.xhtml"><i class="bi bi-pencil-square"></i></a>	
+   		<a class="icon-trash-indicator" href="#" ><i class="bi bi-trash3"></i></a>
     </h:column>
 	</h:dataTable>
    </div>
     </div>
 		</h:form>
-
 	<footer> Lista de Indicadores </footer>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
