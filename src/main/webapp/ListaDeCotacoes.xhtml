@@ -77,10 +77,38 @@
       </div>
     </nav>
     
+    
+    <div class="modal fade" id="modalConfirmacaoExclusao" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">CONFIRMAÇÃO DE EXCLUSÃO</h5>
+        <h:commandButton class="btn-close" data-bs-dismiss="modal" aria-label="Close"></h:commandButton>
+      </div>
+      <div class="modal-body">
+        <p>Você realmente deseja EXCLUIR essa cotação?</p>
+      </div>
+      <div class="modal-footer">
+        <h:commandButton class="btn btn-modal-cancel" value="Cancelar" data-bs-dismiss="modal" ></h:commandButton>
+        <h:commandButton class="btn btn-modal-confirmation" value="Excluir" actionListener="#{cotacoesControllerBean.excluir}"></h:commandButton>
+      </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    function abrirModal(data) {
+        if (data.status === 'success') {
+            var modal = new bootstrap.Modal(document.getElementById('modalConfirmacaoExclusao'));
+            modal.show();
+        }
+    }
+</script>
+
     <div class="table-conteiner">
     		
     	<div class="button-container-table">
-   			<a id="btnAdd"  href="#"><i class="bi bi-plus"></i> Adicionar</a>
+   			<a id="btnAdd"  href="Cotacoes.xhtml"><i class="bi bi-plus"></i> Adicionar</a>
    			<a id="btnAddAPI" href="#"><i class="bi bi-box-seam"> API</i></a>
    		</div>
    		
@@ -127,8 +155,14 @@
     </h:column>
     
     <h:column >
-   	 	<a href="#" class="icon-edit"><i class="bi bi-pencil-square"></i></a>	
-   		<a class="icon-trash" href="#" ><i class="bi bi-trash3"></i></a>
+   	 	<h:commandLink class="icon-edit-cotacoes" action="#{cotacoesControllerBean.editar(cotacoes)}" value="">
+            <i class="bi bi-pencil-square"></i>
+        </h:commandLink>	
+   		<h:commandLink class="icon-trash-cotacoes" value="">
+    		<f:setPropertyActionListener target="#{cotacoesControllerBean.selectedCotacao}" value="#{cotacoes}" />
+    		<f:ajax render="modalConfirmacaoExclusao" onevent="abrirModal" />
+    		<i class="bi bi-trash3"></i>
+		</h:commandLink>
     </h:column>
 	</h:dataTable>
    </div>

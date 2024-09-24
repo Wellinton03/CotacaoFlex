@@ -6,8 +6,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -56,6 +58,24 @@ public class CotacoesControllerBean implements Serializable {
     
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
+    @PostConstruct
+    public void init() {
+    	 Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
+    	 selectedCotacao = (Cotacoes) flash.get("selectedCotacao");
+
+	        if (selectedCotacao == null) {
+	        	selectedCotacao = new Cotacoes();
+	        }
+    	
+    }
+    
+    public String editar(Cotacoes cotacoes) {
+        Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
+        flash.put("selectedCotacao", cotacoes);
+        
+        return "Cotacoes?faces-redirect=true";
+    }
+    
     public void initNewCotacao() {
         selectedCotacao = new Cotacoes();
         listaIndicadores = indicadorService.todosIndicadores();
@@ -92,17 +112,13 @@ public class CotacoesControllerBean implements Serializable {
         listaCotacoes = cotacoesService.buscar(termoPesquisa);
     }
     
-    public void deletaCotacao() {
-    	cotacoesService.deletaCotacao();
-    }
-    
-   
     public void salvar() {
+    	System.out.println("Cotação " + selectedCotacao.getId() + " " + selectedCotacao.getValor() + " " + selectedCotacao.getDataHora() + " " + selectedCotacao.getIndicadores() + " ");
         if (selectedCotacao.getIndicadores() != null) {
             cotacoesService.salvar(selectedCotacao);
             listaCotacoes = cotacoesService.todasCotacoes();
             
-            selectedCotacao = null;
+            selectedCotacao = new Cotacoes();
             
             FacesContext.getCurrentInstance().addMessage(null,
  	        		new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Cotação salva com sucesso!"));
@@ -117,7 +133,7 @@ public class CotacoesControllerBean implements Serializable {
             cotacoesService.excluir(selectedCotacao);
             listaCotacoes.remove(selectedCotacao);
             
-            selectedCotacao = null;
+            selectedCotacao = new Cotacoes();
             
             FacesContext.getCurrentInstance().addMessage(null,
  	        		new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Cotação excluída com sucesso!"));
@@ -215,8 +231,7 @@ public class CotacoesControllerBean implements Serializable {
                 filtroCustom();
                 break;
             default:
-                FacesContext.getCurrentInstance().addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Selecione um filtro válido."));
+                
         }
     }
     
@@ -254,8 +269,6 @@ public class CotacoesControllerBean implements Serializable {
     	return dataBase.minusDays(dias);
     }
     
-    
-
 	public Cotacoes getSelectedCotacao() {
         return selectedCotacao;
     }

@@ -274,16 +274,16 @@
     	width: 10%;
 }
 
-	#dataTable .table-hover td:nth-child(4) .icon-trash {
+	#dataTable .table-hover td:nth-child(4) .icon-trash-cotacoes {
     	color: red; 
 }
 
-	#dataTable .table-hover td:nth-child(4) .icon-edit{
+	#dataTable .table-hover td:nth-child(4) .icon-edit-cotacoes{
     	color: black; 
 }
 
 #dataTable .table-hover td:nth-child(3) .icon-trash-indicator {
-    	color: red; 
+    	color: red;
 }
 
 	#dataTable .table-hover td:nth-child(3) .icon-edit-indicator{
@@ -291,6 +291,25 @@
 }
 
 		/* TELA DE INDICADORES */
+
+	.icon-container {
+    	display: flex;
+    	gap: 0;
+}
+
+	.icon-edit-indicator, .icon-trash-indicator {
+    	display: inline-block;
+    	margin-right: 2px;
+    	padding: 2px;
+    	vertical-align: middle;
+}
+
+	.icon-edit-cotacoes, .icon-trash-cotacoes {
+    	display: inline-block;
+    	margin-right: 2px;
+    	padding: 2px;
+    	vertical-align: middle;
+}
 
 	.conteiner-content {
 		display: flex;
@@ -315,16 +334,66 @@
 	.input-container {
     	display: flex;
     	align-items: center;
-    	margin-bottom: 40px; 
+    	margin-bottom: 15px; 
 }
 	
 	.label-indicator {
 		color:white;
 		margin-right: 5px;
+		margin-left: -13px;
 		
 	}
 	
 	.input-indicator {
+    	background-color: #4d5162;
+    	color: white ;
+    	border-radius: 10px;
+    	border: none;
+		outline: none;
+    	padding: 5px;
+}
+
+	.label-price {
+		color:white;
+		margin-right: 5px;
+		margin-left: 25px;
+		
+	}
+	
+	.input-price {
+    	background-color: #4d5162;
+    	color: white ;
+    	border-radius: 0px 10px 10px 0px;
+    	border: none;
+		outline: none;
+    	padding: 5px;
+}
+
+	#dolarIcon{
+		background-color: #3f4150 ;
+		border: none;
+		border-radius: 10px 0px 0px 10px;
+	}
+	
+	.bi-currency-dollar {
+		color: white;
+	}
+	
+	
+
+  	.input-down-container {
+  		display: flex;
+    	align-items: center;
+    	margin-bottom: 40px; 
+  	}
+	
+	.label-dateHour {
+		color:white;
+		margin-right: 5px;
+		margin-left: -20px;
+	}
+	
+	.input-dateHour {
     	background-color: #4d5162;
     	color: white ;
     	border-radius: 10px;
@@ -348,7 +417,46 @@
 }
 
 
+		/* MODAL CONFIRMATION */ 
+	
+	.modal-header {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+		background-color: #FF8C00;
+	}
+	
+	.btn-close {
+		border: none;
+	}
+	
+	
+	.modal-header .btn-close {
+    	position: absolute;
+    	right: 15px;
+    	top: 15px;
+}
+	
+	.btn-modal-confirmation {
+		background-color: #FF8C00;
+		color: white;
+	}
+	
+	.btn-modal-confirmation:hover {
+		background-color: #cc7100;
+		color: white;
+	}
 
+	.btn-modal-cancel {
+		border: 1px solid #FF8C00;
+		color: #FF8C00;
+	}
+	
+	.btn-modal-cancel:hover {
+		color: white;
+    	background-color: #FF8C00;
+	}
 
 /* Footer*/
 

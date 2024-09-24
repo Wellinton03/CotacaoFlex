@@ -77,6 +77,33 @@
       </div>
     </nav>
     
+    <div class="modal fade" id="modalConfirmacaoExclusao" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">CONFIRMAÇÃO DE EXCLUSÃO</h5>
+        <h:commandButton class="btn-close" data-bs-dismiss="modal" aria-label="Close"></h:commandButton>
+      </div>
+      <div class="modal-body">
+        <p>Este INDICADOR pode ter COTAÇÕES vinculadas, você realmente deseja EXCLUIR?</p>
+      </div>
+      <div class="modal-footer">
+        <h:commandButton class="btn btn-modal-cancel" value="Cancelar" data-bs-dismiss="modal" ></h:commandButton>
+        <h:commandButton class="btn btn-modal-confirmation" value="Excluir" action="#{indicadoresControllerBean.excluir()}"></h:commandButton>
+      </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    function abrirModal(data) {
+        if (data.status === 'success') {
+            var modal = new bootstrap.Modal(document.getElementById('modalConfirmacaoExclusao'));
+            modal.show();
+        }
+    }
+</script>
+    
     <div class="table-conteiner">
     
     	<div class="button-container-table">
@@ -113,19 +140,25 @@
         <h:outputText value="#{indicadores.description}" />
     </h:column>
     
-    <h:column >
-   	 	 <h:commandLink action="#{indicadoresControllerBean.editar(indicadores)}" value="">
+    <h:column  >
+    
+   	 	 <h:commandLink class="icon-edit-indicator" action="#{indicadoresControllerBean.editar(indicadores)}" value="">
             <i class="bi bi-pencil-square"></i>
-        </h:commandLink>	
-   		<h:commandLink action="#{indicadoresControllerBean.excluir()}" value="">
-             <i class="bi bi-trash3"></i>
         </h:commandLink>
+        
+   		<h:commandLink class="icon-trash-indicator" value="">
+    		<f:setPropertyActionListener target="#{indicadoresControllerBean.selectedIndicador}" value="#{indicadores}" />
+    		<f:ajax render="modalConfirmacaoExclusao" onevent="abrirModal" />
+    		<i class="bi bi-trash3"></i>
+		</h:commandLink>
+		
     </h:column>
 	</h:dataTable>
    </div>
     </div>
 		</h:form>
 	<footer> Lista de Indicadores </footer>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

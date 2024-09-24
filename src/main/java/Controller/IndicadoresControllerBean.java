@@ -42,6 +42,13 @@ public class IndicadoresControllerBean implements Serializable {
 	        }
 		  
 	  }
+	  
+	  public String editar(Indicadores indicador) {
+		  Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
+		  flash.put("selectedIndicador", indicador);
+		  
+		  return "Indicador?faces-redirect=true";
+	  }
  	public List<Indicadores> getListaIndicadores() {
 		if (listaIndicadores == null) {
 			listaIndicadores = indicadorService.todosIndicadores();
@@ -49,21 +56,10 @@ public class IndicadoresControllerBean implements Serializable {
 		return listaIndicadores;
 	}
  	
- 	public void initNewIndicador() {
- 	    selectedIndicador = new Indicadores();
- 	    
- 	}
- 	
  	public void pesquisa() {
  			listaIndicadores = indicadorService.buscar(termoPesquisa);
   	}
  	
- 	public String editar(Indicadores indicador) {
-        Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
-        flash.put("selectedIndicador", indicador);
-        
-        return "Indicador?faces-redirect=true";
-    }
  	
 
  	public String salvar() {
@@ -75,7 +71,7 @@ public class IndicadoresControllerBean implements Serializable {
  	        indicadorService.salvar(selectedIndicador);
  	        listaIndicadores = indicadorService.todosIndicadores();
  	        
- 	        selectedIndicador = null;
+ 	        selectedIndicador = new Indicadores();
  	        
  	        
  	    } 
@@ -83,12 +79,13 @@ public class IndicadoresControllerBean implements Serializable {
  	}
 
 	public void excluir() {
+		System.out.println("Indicador " + selectedIndicador);
 		if (selectedIndicador != null) {
 			indicadorService.excluir(selectedIndicador);
 			selectedIndicador = null;
 			listaIndicadores = indicadorService.todosIndicadores();
 			
-			selectedIndicador = null;
+			selectedIndicador = new Indicadores();
 			
 			 FacesContext.getCurrentInstance().addMessage(null,
 		                new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Indicador excluído com sucesso!"));

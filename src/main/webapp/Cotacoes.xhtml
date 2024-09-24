@@ -77,6 +77,10 @@
       </div>
     </nav>
     
+    <h:message for="indicator" style="color:red"/>
+	<h:message for="price" style="color:red"/>
+	<h:message for="dateHour" style="color:red"/>
+    
     <div class="conteiner-content">
     
     	<div class="box-indicator">
@@ -84,27 +88,76 @@
     		<div class="input-container">
    				<h:outputLabel 
    					class="label-indicator" 
-   					for="inputIndicador"
-   					value="Indicador: " />
+   					for="indicator" 
+   					value="Indicador:" />
    			
-   				<h:inputText
+   				<h:selectOneMenu
+   					id="indicator"
    					class="input-indicator"
-   					id="inputIndicador"
-   					style="text-transform: uppercase;"
-   					value="#{indicadoresControllerBean.selectedIndicador.description}" />
+   					value="#{cotacoesControllerBean.selectedCotacao.indicadores}"
+                    converter="indicadoresConverter"
+                    style="width: 200px;">
+                        <f:selectItem itemLabel="Selecione..."
+                                      noSelectionOption="true"
+                                      itemValue="" />
+                        <f:selectItems value="#{cotacoesControllerBean.listaIndicadores}" var="indicador"
+                                       itemLabel="#{indicador.description}" itemValue="#{indicador}"/>
+   				</h:selectOneMenu>
+   				
    			</div>
+   			
+   			<div class="input-container">
+   			
+   				<h:outputLabel for="price" class="label-price" value="Valor:" />
+   				
+   				<span id="dolarIcon" class="input-group-text">
+            		<i class="bi bi-currency-dollar"></i>
+        		</span>
+   				<h:inputText 
+   					id="price"  
+   					class="input-price" 
+   					value="#{cotacoesControllerBean.selectedCotacao.valor}"
+   					style="width: 200px;">
+   						<f:convertNumber 
+               				type="currency" 
+                			currencySymbol="R$" 
+               				maxFractionDigits="2"
+               				locale="pt_BR"/>
+   					</h:inputText >
+   					
+   			</div>
+   			
+   			<div class="input-down-container">
+   			
+   				<h:outputLabel 
+   					class="label-dateHour" 
+   					for="dateHour" 
+   					value="Data e Hora:" />
+   					
+   				<h:inputText  
+   					id="dateHour" 
+   					class="input-dateHour " 
+   					value="#{cotacoesControllerBean.selectedCotacao.dataHora}" 
+   					style="width: 200px;" >
+   						  <f:converter converter="localDateTimeConverter" />
+   					</h:inputText>
+   			</div>
+   			
    				<h:commandButton 
-   				class="save-indicator"
-   			 	title="Salvar" 
-   			 	value="Salvar" 
-   			 	action="#{indicadoresControllerBean.salvar()}">
+   					class="save-indicator"
+   			 		title="Salvar" 
+   			 		value="Salvar" 
+   			 		action="#{cotacoesControllerBean.salvar()}">
+   			 		
    			</h:commandButton>
     	</div>
     </div>
 		</h:form>
 
 	<footer> Lista De Cotações </footer>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	
+	 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	 	
 </body>
 
 </html>
