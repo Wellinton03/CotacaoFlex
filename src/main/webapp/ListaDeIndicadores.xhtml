@@ -100,7 +100,7 @@
     <h:dataTable id ="resultTable" value="#{indicadoresControllerBean.listaIndicadores}" var="indicadores" class="table table-hover">
     
     <h:column >
-        <f:facet name="header">
+        <f:facet  name="header">
             <h:outputText value="ID" />
         </f:facet>
         <h:outputText value="#{indicadores.id}" />
@@ -114,8 +114,12 @@
     </h:column>
     
     <h:column >
-   	 	<a class="icon-edit-indicator" href="Indicador.xhtml"><i class="bi bi-pencil-square"></i></a>	
-   		<a class="icon-trash-indicator" href="#" ><i class="bi bi-trash3"></i></a>
+   	 	 <h:commandLink action="#{indicadoresControllerBean.editar(indicadores)}" value="">
+            <i class="bi bi-pencil-square"></i>
+        </h:commandLink>	
+   		<h:commandLink action="#{indicadoresControllerBean.excluir()}" value="">
+             <i class="bi bi-trash3"></i>
+        </h:commandLink>
     </h:column>
 	</h:dataTable>
    </div>

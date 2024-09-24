@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -33,13 +34,14 @@ public class IndicadoresControllerBean implements Serializable {
 	
 	  @PostConstruct
 	    public void init() {
-		  if (indicadorId != null) {
-		        selectedIndicador = indicadorService.porId(indicadorId);
-		    } else {
-		        selectedIndicador = new Indicadores(); 
-		    }
-	    }	
-	
+		  Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
+	        selectedIndicador = (Indicadores) flash.get("selectedIndicador");
+
+	        if (selectedIndicador == null) {
+	            selectedIndicador = new Indicadores();
+	        }
+		  
+	  }
  	public List<Indicadores> getListaIndicadores() {
 		if (listaIndicadores == null) {
 			listaIndicadores = indicadorService.todosIndicadores();
@@ -55,6 +57,14 @@ public class IndicadoresControllerBean implements Serializable {
  	public void pesquisa() {
  			listaIndicadores = indicadorService.buscar(termoPesquisa);
   	}
+ 	
+ 	public String editar(Indicadores indicador) {
+        Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
+        flash.put("selectedIndicador", indicador);
+        
+        return "Indicador?faces-redirect=true";
+    }
+ 	
 
  	public String salvar() {
  	    if (selectedIndicador != null) {
@@ -106,6 +116,14 @@ public class IndicadoresControllerBean implements Serializable {
 	
 	public boolean isIndicadorSeleciona() {
 		return selectedIndicador != null && selectedIndicador.getId() != null;
+	}
+
+	public Long getIndicadorId() {
+		return indicadorId;
+	}
+
+	public void setIndicadorId(Long indicadorId) {
+		this.indicadorId = indicadorId;
 	}
 
 	

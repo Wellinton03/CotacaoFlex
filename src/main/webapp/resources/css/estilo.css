@@ -236,10 +236,11 @@
         width: 100%;
         margin-top: 0px;
         border-collapse: collapse;
+        
         }
 	
-	#dataTable table {
-    	width: 95%; 
+	#dataTable .table  {
+    	width: 95%;
 }
 
 	#dataTable thead th {
