@@ -53,8 +53,8 @@ public class Cotacoes implements Serializable {
         return dataHora;
     }
 
-    public void setDataHora(LocalDateTime dataAtual) {
-        this.dataHora = dataAtual;
+    public void setDataHora(LocalDateTime dataHora) {
+        this.dataHora = dataHora;
     }
 
     public Double getValor() {

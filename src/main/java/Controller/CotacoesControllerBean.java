@@ -50,7 +50,6 @@ public class CotacoesControllerBean implements Serializable {
     private String startDate;
     private String finalDate;
     
-    
     private List<Cotacoes> listaCotacoes;
     private List<Indicadores> listaIndicadores;
     private List<IndicadorDTO> indicadoresFiltrados;
@@ -112,7 +111,7 @@ public class CotacoesControllerBean implements Serializable {
         listaCotacoes = cotacoesService.buscar(termoPesquisa);
     }
     
-    public void salvar() {
+    public String salvar() {
     	System.out.println("Cotação " + selectedCotacao.getId() + " " + selectedCotacao.getValor() + " " + selectedCotacao.getDataHora() + " " + selectedCotacao.getIndicadores() + " ");
         if (selectedCotacao.getIndicadores() != null) {
             cotacoesService.salvar(selectedCotacao);
@@ -120,12 +119,8 @@ public class CotacoesControllerBean implements Serializable {
             
             selectedCotacao = new Cotacoes();
             
-            FacesContext.getCurrentInstance().addMessage(null,
- 	        		new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", "Cotação salva com sucesso!"));
-        } else {
-        	FacesContext.getCurrentInstance().addMessage(null,
- 	        		new FacesMessage(FacesMessage.SEVERITY_ERROR, "Falha", "Cotação não foi salva"));
         }
+        return "ListaDeCotacoes?faces-redirect=true";
     }
 
     public void excluir() {

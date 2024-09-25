@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 @FacesConverter("localDateTimeConverter")
 public class LocalDateTimeConverter implements Converter {
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
@@ -27,3 +27,4 @@ public class LocalDateTimeConverter implements Converter {
         return formatter.format((LocalDateTime) value);
     }
 }
+

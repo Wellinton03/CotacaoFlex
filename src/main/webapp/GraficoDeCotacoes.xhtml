@@ -77,10 +77,116 @@
       </div>
     </nav>
     
+    <div class="modal fade" id="modalFiltro" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Novo Filtro</h5>
+        <h:commandButton class="btn-close" data-bs-dismiss="modal" aria-label="Close"></h:commandButton>
+      </div>
+      <div class="modal-body-chart">
+      
+      	<div class="input-container">
+        	<h:outputLabel value="Indicador: " for="indicadores" />
+                    <h:selectOneMenu 
+                    	required="true" 
+                    	id="indicadores" 
+                    	value="#{cotacoesControllerBean.indicadorId}">
+                        <f:selectItem 
+                        	itemLabel="Selecione..." 
+                        	itemValue="" 
+                        	noSelectionOption="true" />
+                        <f:selectItems 
+                        	value="#{indicadoresControllerBean.listaIndicadores}" 
+                        	var="indicador" itemLabel="#{indicador.description}" 
+                        	itemValue="#{indicador.id}"/>
+                        
+                    </h:selectOneMenu>
+                    
+			</div>
+			<div class="input-container">
+                    
+        <h:outputLabel value="Filtro: " for="filtro" />
+                    <h:selectOneMenu required="true" id="filtro" value="#{cotacoesControllerBean.selectedFilter}">
+                        <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
+                        <f:selectItem itemLabel="1 Dia - 24Hrs" itemValue="1" />
+                        <f:selectItem itemLabel="3 Dias - 48Hrs" itemValue="3" />
+                        <f:selectItem itemLabel="5 Dias - 120Hrs" itemValue="5" />
+                        <f:selectItem itemLabel="10 Dias - 240Hrs" itemValue="10" />
+                        <f:selectItem itemLabel="15 Dias - 360Hrs" itemValue="15" />
+                        <f:selectItem itemLabel="30 Dias - 720Hrs" itemValue="30" />
+                        <f:selectItem itemLabel="Personalizado" itemValue="custom" />
+                    </h:selectOneMenu>
+                    
+			</div>
+			<div class="input-container">
+                    
+                    <h:outputLabel 
+   					class="label-dateHour" 
+   					for="dateInitial" 
+   					value="Data Inicial: " />
+   				
+   				<h:inputText  
+   					id="dateInitial"
+   					class="input-dateHour " 
+   					value="#{cotacoesControllerBean.dataInicial}"
+   					converter="localDateTimeConverter"
+   					style= "width: 200px;" >
+   					<f:passThroughAttribute name="type" value="datetime-local"/>
+   					</h:inputText>
+   					
+			</div>
+			<div class="input-container">
+   					<h:outputLabel 
+   					class="label-dateHour" 
+   					for="dateEnd" 
+   					value="Data Final: " />
+   					
+   				<h:inputText  
+   					id="dateEnd"
+   					class="input-dateHour " 
+   					value="#{cotacoesControllerBean.dataFinal}"
+   					converter="localDateTimeConverter"
+   					style= "width: 200px;" >
+   					<f:passThroughAttribute name="type" value="datetime-local"/>
+   					</h:inputText>	
+   			</div>
+      </div>
+      <div class="modal-footer-chart">
+        <h:commandButton class="btn btn-modal-cancel" value="Cancelar" data-bs-dismiss="modal" ></h:commandButton>
+        <h:commandButton class="btn btn-modal-confirmation-chart" value="Filtrar" action="#{cotacoesControllerBean.aplicarFiltro()}"></h:commandButton>
+      </div>
+      </div>
+    </div>
+  </div>
+    
+       <div class="chart-conteiner">
+       
+       		<div class="button-chart-conteiner">
+   				<h:commandLink styleClass="btn-chart" value="">
+   				<f:ajax render="modalFiltro" onevent="abrirModal" />
+    				<i class="bi bi-funnel"></i> Filtrar
+		</h:commandLink> 
+    		</div>
+    	
+  
+     	 
+		
+    </div>
 		</h:form>
 
 	<footer> Gráfico </footer>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+	<script>
+    function abrirModal(data) {
+        if (data.status === 'success') {
+            var modal = new bootstrap.Modal(document.getElementById("modalFiltro"));
+            modal.show();
+        }
+    }
+</script>
+
 </body>
 
 </html>
