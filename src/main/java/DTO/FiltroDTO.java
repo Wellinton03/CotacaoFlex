@@ -1,13 +1,13 @@
 package DTO;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
 
 public class FiltroDTO {
     private LocalDateTime dataHora;
     private double valor;
 
+    
     public FiltroDTO(LocalDateTime dataHora, double valor) {
         this.dataHora = dataHora;
         this.valor = valor;
@@ -31,9 +31,10 @@ public class FiltroDTO {
 
     @Override
     public String toString() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        // Formato de string para o método toString()
+        DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return "FiltroDTO{" +
-               "dataHora=" + (dataHora != null ? dateFormat.format(dataHora) : "null") +
+               "dataHora=" + (dataHora != null ? dataHora.format(displayFormatter) : "null") +
                ", valor=" + String.format("%.2f", valor) +
                '}';
     }

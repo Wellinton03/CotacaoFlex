@@ -1,10 +1,14 @@
 package Controller;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -53,7 +57,9 @@ public class CotacoesControllerBean implements Serializable {
     private List<Cotacoes> listaCotacoes;
     private List<Indicadores> listaIndicadores;
     private List<IndicadorDTO> indicadoresFiltrados;
-    private List<FiltroDTO> cotacoesFiltradas;
+    private List<FiltroDTO> cotacoesFiltradas = new ArrayList<>();
+    
+    StringBuilder builder = new StringBuilder();
     
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
@@ -61,11 +67,9 @@ public class CotacoesControllerBean implements Serializable {
     public void init() {
     	 Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
     	 selectedCotacao = (Cotacoes) flash.get("selectedCotacao");
-
-	        if (selectedCotacao == null) {
-	        	selectedCotacao = new Cotacoes();
-	        }
-    	
+	      
+    	 selectedCotacao = new Cotacoes();
+    	 
     }
     
     public String editar(Cotacoes cotacoes) {
@@ -81,7 +85,8 @@ public class CotacoesControllerBean implements Serializable {
     }
     
     public void initNewFiltro() {
-    	selectedFilter = null;
+    	System.out.println("chamou");
+    	selectedFilter = "";
     	dataInicial = null;
     	dataFinal = null;
     	indicadorId = null;
@@ -148,12 +153,6 @@ public class CotacoesControllerBean implements Serializable {
     	return indicadoresFiltrados;
     }
     
-    public List<FiltroDTO> getListaCotacoesFiltradas() {
-    	if(cotacoesFiltradas == null) {
-    	cotacoesFiltradas = cotacoesService.buscarPorPeriodoEIndicador(dataInicial, dataFinal, indicadorId);
-    }
-    	return cotacoesFiltradas;
-    }
 
     public List<Indicadores> getListaIndicadores() {
         if (listaIndicadores == null) {
@@ -202,7 +201,16 @@ public class CotacoesControllerBean implements Serializable {
     	cotacoesService.atualizarMoedas(indicadorDescription, dias);
     }
     
+    public List<FiltroDTO> getListaCotacoesFiltradas() {
+    	if(cotacoesFiltradas == null) {
+    		cotacoesFiltradas = cotacoesService.buscarPorPeriodoEIndicador(dataInicial, dataFinal, indicadorId);
+    	}
+    	return cotacoesFiltradas;
+    }
+    
+    
     public void aplicarFiltro() {
+    	System.out.println(selectedFilter);
         switch (selectedFilter) {
             case "1":
                 filtro1Dia();
@@ -254,10 +262,50 @@ public class CotacoesControllerBean implements Serializable {
     
     public void filtro30Dias() {
     	cotacoesFiltradas = cotacoesService.buscarPorPeriodoEIndicador(getDataAnterior(LocalDateTime.now(), 30), LocalDateTime.now(), indicadorId);
+    	System.out.println(cotacoesFiltradas);
     }
     
     public void filtroCustom() {
     	 cotacoesFiltradas = cotacoesService.buscarPorPeriodoEIndicador(dataInicial, dataFinal, indicadorId);
+    }
+    
+    
+    public String gerarDadosGrafico() {
+        StringBuilder builder = new StringBuilder();
+
+        if (cotacoesFiltradas != null && !cotacoesFiltradas.isEmpty()) {
+            builder.append("[['Data', 'Valor', { role: 'tooltip', p: { html: true } }],");
+
+            Locale locale = new Locale.Builder().setLanguage("pt").setRegion("BR").build();
+            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
+            
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm");
+
+            for (FiltroDTO cotacao : cotacoesFiltradas) {
+            	
+                String formattedValue = currencyFormat.format(cotacao.getValor());
+                String formattedDate = cotacao.getDataHora().format(dateFormatter); 
+                
+                String tooltipContent = "<div id='tooltip'>" + 
+                	    formattedDate + "<br>" + 
+                	    formattedValue.replace("'", "\\'") + 
+                	    "</div>";
+                                        
+                builder.append("['")
+                       .append(formattedDate) 
+                       .append("', ")
+                       .append(cotacao.getValor()) 
+                       .append(", '")
+                       .append(tooltipContent.replace("'", "\\'"))
+                       .append("'], ");
+            }
+
+            builder.setLength(builder.length() - 2); 
+            builder.append("]"); 
+        }
+
+        System.out.println(builder.toString()); 
+        return builder.toString();
     }
     
     public static LocalDateTime getDataAnterior(LocalDateTime dataBase, int dias) {

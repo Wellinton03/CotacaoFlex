@@ -76,6 +76,14 @@
         </div>
       </div>
     </nav>
+       <div class="chart-conteiner">
+       
+       		<div class="button-chart-conteiner">
+   				<h:commandLink styleClass="btn-chart" value="" action="#{cotacoesControllerBean.initNewFiltro()}" immediate="true">
+   				<f:ajax execute="@this" render=":form"  onevent="abrirModal" />
+    				<i class="bi bi-funnel"></i> Filtrar
+		</h:commandLink> 
+    		</div>
     
     <div class="modal fade" id="modalFiltro" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -87,9 +95,10 @@
       <div class="modal-body-chart">
       
       	<div class="input-container">
-        	<h:outputLabel value="Indicador: " for="indicadores" />
+        	<h:outputLabel class="button-indicator-label" value="Indicador: " for="indicadores" />
                     <h:selectOneMenu 
                     	required="true" 
+                    	class="input-indicator-chart"
                     	id="indicadores" 
                     	value="#{cotacoesControllerBean.indicadorId}">
                         <f:selectItem 
@@ -106,8 +115,8 @@
 			</div>
 			<div class="input-container">
                     
-        <h:outputLabel value="Filtro: " for="filtro" />
-                    <h:selectOneMenu required="true" id="filtro" value="#{cotacoesControllerBean.selectedFilter}">
+        <h:outputLabel  class="button-filter-label" value="Filtro: " for="filtro" />
+                    <h:selectOneMenu class="input-indicator" required="true" id="filtro" value="#{cotacoesControllerBean.selectedFilter}">
                         <f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
                         <f:selectItem itemLabel="1 Dia - 24Hrs" itemValue="1" />
                         <f:selectItem itemLabel="3 Dias - 48Hrs" itemValue="3" />
@@ -128,10 +137,9 @@
    				
    				<h:inputText  
    					id="dateInitial"
-   					class="input-dateHour " 
+   					class="input-dateHour-initial " 
    					value="#{cotacoesControllerBean.dataInicial}"
-   					converter="localDateTimeConverter"
-   					style= "width: 200px;" >
+   					converter="localDateTimeConverter" >
    					<f:passThroughAttribute name="type" value="datetime-local"/>
    					</h:inputText>
    					
@@ -144,38 +152,39 @@
    					
    				<h:inputText  
    					id="dateEnd"
-   					class="input-dateHour " 
+   					class="input-dateHour-final " 
    					value="#{cotacoesControllerBean.dataFinal}"
-   					converter="localDateTimeConverter"
-   					style= "width: 200px;" >
+   					converter="localDateTimeConverter">
    					<f:passThroughAttribute name="type" value="datetime-local"/>
    					</h:inputText>	
    			</div>
       </div>
       <div class="modal-footer-chart">
-        <h:commandButton class="btn btn-modal-cancel" value="Cancelar" data-bs-dismiss="modal" ></h:commandButton>
-        <h:commandButton class="btn btn-modal-confirmation-chart" value="Filtrar" action="#{cotacoesControllerBean.aplicarFiltro()}"></h:commandButton>
+        <h:commandButton 
+        	class="btn btn-modal-cancel" 
+        	value="Cancelar" 
+        	data-bs-dismiss="modal" >
+        </h:commandButton>
+        <h:commandButton class="btn btn-modal-confirmation-chart" 
+                 value="Filtrar" 
+                 action="#{cotacoesControllerBean.aplicarFiltro()}"
+                 render="line_chart"
+                 oncomplete="drawChart()" >
+		</h:commandButton>
       </div>
       </div>
     </div>
   </div>
-    
-       <div class="chart-conteiner">
-       
-       		<div class="button-chart-conteiner">
-   				<h:commandLink styleClass="btn-chart" value="">
-   				<f:ajax render="modalFiltro" onevent="abrirModal" />
-    				<i class="bi bi-funnel"></i> Filtrar
-		</h:commandLink> 
-    		</div>
-    	
-  
-     	 
-		
+  		<div class="position-chart">
+    	<div id="line_chart" class="chart">
+    	</div>
+  		</div>
     </div>
+    	
 		</h:form>
 
 	<footer> Gráfico </footer>
+	<script src="https://www.gstatic.com/charts/loader.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 	<script>
@@ -185,6 +194,26 @@
             modal.show();
         }
     }
+</script>
+
+<script >
+	google.charts.load('current', {'packages':['corechart']});	
+	google.charts.setOnLoadCallback(drawChart);
+
+		function drawChart() {
+			var data = google.visualization.arrayToDataTable(#{cotacoesControllerBean.gerarDadosGrafico()});
+
+		var options = {
+				title: 'Desempenho de cotações',
+		        legend: { position: 'right' },
+		        hAxis: { textPosition: 'none' },
+		        vAxis: { title: 'Valor' },
+		        tooltip: { isHtml: true }
+		    };
+
+		var chart = new google.visualization.LineChart(document.getElementById('line_chart'));
+		chart.draw(data, options);
+			}
 </script>
 
 </body>

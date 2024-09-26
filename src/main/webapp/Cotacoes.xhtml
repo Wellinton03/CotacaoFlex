@@ -95,8 +95,7 @@
    					id="indicator"
    					class="input-indicator"
    					value="#{cotacoesControllerBean.selectedCotacao.indicadores}"
-                    converter="indicadoresConverter"
-                    style="width: 200px;">
+                    converter="indicadoresConverter">
                         <f:selectItem itemLabel="Selecione..."
                                       noSelectionOption="true"
                                       itemValue="" />
@@ -117,8 +116,7 @@
    					id="dateHour"
    					class="input-dateHour " 
    					value="#{cotacoesControllerBean.selectedCotacao.dataHora}"
-   					converter="localDateTimeConverter"
-   					style= "width: 200px;" >
+   					converter="localDateTimeConverter">
    					<f:passThroughAttribute name="type" value="datetime-local"/>
    					</h:inputText>
    					
@@ -134,8 +132,7 @@
    				<h:inputText 
    					id="price"  
    					class="input-price" 
-   					value="#{cotacoesControllerBean.selectedCotacao.valor}"
-   					style="width: 170px;">
+   					value="#{cotacoesControllerBean.selectedCotacao.valor}">
    						<f:convertNumber maxFractionDigits="2"/>
                			<f:passThroughAttribute name="placeholder" value="0,00"/>
    					</h:inputText >
