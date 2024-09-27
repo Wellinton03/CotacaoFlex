@@ -165,7 +165,8 @@
         	value="Cancelar" 
         	data-bs-dismiss="modal" >
         </h:commandButton>
-        <h:commandButton class="btn btn-modal-confirmation-chart" 
+        <h:commandButton 
+        		 class="btn btn-modal-confirmation-chart" 
                  value="Filtrar" 
                  action="#{cotacoesControllerBean.aplicarFiltro()}"
                  render="line_chart"
@@ -178,28 +179,30 @@
   		<div class="position-chart">
     	<div id="line_chart" class="chart">
     	</div>
+    			 
   		</div>
+    		<h:commandButton
+    			 id="generatedPdf" 
+    			 class="btn btn-modal-confirmation-chart" 
+                 value="Gerar PDF"
+                 onclick="gerarPdf()" />
     </div>
     	
 		</h:form>
 
 	<footer> Gráfico </footer>
 	<script src="https://www.gstatic.com/charts/loader.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-	<script>
-    function abrirModal(data) {
-        if (data.status === 'success') {
-            var modal = new bootstrap.Modal(document.getElementById("modalFiltro"));
-            modal.show();
-        }
-    }
-</script>
+	
+	<script >
+		let chart;
 
-<script >
-	google.charts.load('current', {'packages':['corechart']});	
-	google.charts.setOnLoadCallback(drawChart);
+	google.charts.load('current', {'packages':['corechart']});
+	google.charts.setOnLoadCallback(drawChart);	
 
+		
 		function drawChart() {
 			var data = google.visualization.arrayToDataTable(#{cotacoesControllerBean.gerarDadosGrafico()});
 
@@ -208,13 +211,38 @@
 		        legend: { position: 'right' },
 		        hAxis: { textPosition: 'none' },
 		        vAxis: { title: 'Valor' },
-		        tooltip: { isHtml: true }
+		        tooltip: { isHtml: true },
+		        pointSize: 5
 		    };
 
-		var chart = new google.visualization.LineChart(document.getElementById('line_chart'));
+			chart = new google.visualization.LineChart(document.getElementById('line_chart'));
 		chart.draw(data, options);
 			}
+
+		function gerarPdf() {
+			if (chart) {
+					const imgUri = chart.getImageURI();
+					console.log('imgUri')
+					const { jsPDF } = window.jspdf;
+					const pdf = new jsPDF();
+					pdf.addImage(imgUri, 'PNG', 5, 0, 210, 160);
+					pdf.save('grafico.pdf');
+				} else {
+					console.log('Erro');
+				}
+			}
+		
 </script>
+
+	<script >
+		function abrirModal(data) {
+	    	if (data.status === 'success') {
+	        	var modal = new bootstrap.Modal(document.getElementById("modalFiltro"));
+	        	modal.show();
+	    }
+	}
+	</script>
+	
 
 </body>
 

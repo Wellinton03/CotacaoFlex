@@ -2,7 +2,6 @@ package Controller;
 
 import java.io.Serializable;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -85,7 +84,6 @@ public class CotacoesControllerBean implements Serializable {
     }
     
     public void initNewFiltro() {
-    	System.out.println("chamou");
     	selectedFilter = "";
     	dataInicial = null;
     	dataFinal = null;
@@ -210,7 +208,6 @@ public class CotacoesControllerBean implements Serializable {
     
     
     public void aplicarFiltro() {
-    	System.out.println(selectedFilter);
         switch (selectedFilter) {
             case "1":
                 filtro1Dia();
@@ -274,7 +271,7 @@ public class CotacoesControllerBean implements Serializable {
         StringBuilder builder = new StringBuilder();
 
         if (cotacoesFiltradas != null && !cotacoesFiltradas.isEmpty()) {
-            builder.append("[['Data', 'Valor', { role: 'tooltip', p: { html: true } }],");
+            builder.append("[['Data', 'Legenda', { role: 'tooltip', p: { html: true } }],");
 
             Locale locale = new Locale.Builder().setLanguage("pt").setRegion("BR").build();
             NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
@@ -287,7 +284,7 @@ public class CotacoesControllerBean implements Serializable {
                 String formattedDate = cotacao.getDataHora().format(dateFormatter); 
                 
                 String tooltipContent = "<div id='tooltip'>" + 
-                	    formattedDate + "<br>" + 
+                	    formattedDate + " " +
                 	    formattedValue.replace("'", "\\'") + 
                 	    "</div>";
                                         

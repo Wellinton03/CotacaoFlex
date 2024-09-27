@@ -587,9 +587,9 @@
 	
 	/* CHART */
 	
-	.chart {
+	 .position-chart .chart {
 		width: 900px;
-		height: 500px
+		height: 500px;
 	}
 	
 	.position-chart{
