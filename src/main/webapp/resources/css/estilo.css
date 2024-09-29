@@ -198,6 +198,7 @@
 		border: 1.5px solid #FF8C00;
 		border-radius: 5px;
 		text-decoration: none;
+		
 	}
 	
 	
@@ -217,6 +218,7 @@
 		border: 1.5px solid #FF8C00;
 		border-radius: 5px;
 		text-decoration: none;
+		font-family:monospace ;
 	}
 	
 	 #btnAddAPI:hover {
