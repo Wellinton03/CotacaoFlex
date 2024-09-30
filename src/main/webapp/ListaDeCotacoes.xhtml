@@ -76,118 +76,16 @@
         </div>
       </div>
     </nav>
-    
-    
-    <div class="modal fade" id="modalConfirmacaoExclusao" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">CONFIRMAÇÃO DE EXCLUSÃO</h5>
-        <h:commandButton class="btn-close" data-bs-dismiss="modal" aria-label="Close"></h:commandButton>
-      </div>
-      <div class="modal-body">
-        <p>Você realmente deseja EXCLUIR essa cotação?</p>
-      </div>
-      <div class="modal-footer">
-        <h:commandButton class="btn btn-modal-cancel" value="Cancelar" data-bs-dismiss="modal" ></h:commandButton>
-        <h:commandButton class="btn btn-modal-confirmation" value="Excluir" actionListener="#{cotacoesControllerBean.excluir}"></h:commandButton>
-      </div>
-      </div>
-    </div>
-  </div>
-  
-  <div class="modal fade" id="modalAPI" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">BUSQUE DADOS ATUALIZADOS</h5>
-        <h:commandButton class="btn-close" data-bs-dismiss="modal" aria-label="Close"></h:commandButton>
-      </div>
-      <div class="modal-body">
-       	<h:selectOneMenu
-                        id="indicadorAPI"
-                        value="#{cotacoesControllerBean.selectedIndicador}"
-                        styleClass="menu-modal"
-                        converter="indicadoresConverter"
-                        style="width: 200px;"
-                        required="true">
-                        <f:selectItem itemLabel="Selecione..."
-                                      noSelectionOption="true"
-                                      itemValue=""/>
-                        <f:selectItems value="#{cotacoesControllerBean.listaIndicadores}" var="indicador"
-                                       itemLabel="#{indicador.description}" itemValue="#{indicador}"/>
-                    </h:selectOneMenu>
-                    
-                    <h:outputLabel value="API: " for="API" />
-                    <h:selectOneMenu
-            			id="API"
-            			styleClass="menu-modal"
-            			required="true"
-            			style="width: 200px;"
-            			value="#{cotacoesControllerBean.selectedAPI}">
-            		<f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
-           			<f:selectItem itemLabel="Ações - Alpha Vantage" itemValue="1" />
-           	 		<f:selectItem itemLabel="Moedas - Awesome" itemValue="2" />
-           	 		<f:ajax update="dataInicial dataFinal" process="@this" />
-        			</h:selectOneMenu>
-
-        		 <h:outputLabel 
-   					class="label-dateHour" 
-   					for="dateInitial" 
-   					value="Data Inicial: " />
-   				
-   				<h:inputText  
-   					id="dateInitial"
-   					class="input-dateHour-initial " 
-   					value="#{cotacoesControllerBean.dataInicial}"
-   					converter="localDateTimeConverter" >
-   					<f:passThroughAttribute name="type" value="datetime-local"/>
-   					</h:inputText>
-   					
-   					<h:outputLabel 
-   					class="label-dateHour" 
-   					for="dateEnd" 
-   					value="Data Final: " />
-   					
-   				<h:inputText  
-   					id="dateEnd"
-   					class="input-dateHour-final " 
-   					value="#{cotacoesControllerBean.dataFinal}"
-   					converter="localDateTimeConverter">
-   					<f:passThroughAttribute name="type" value="datetime-local"/>
-   					</h:inputText>	
-
-                    
-      </div>
-      <div class="modal-footer">
-        <h:commandButton class="btn btn-modal-cancel" value="Cancelar" data-bs-dismiss="modal" ></h:commandButton>
-        <h:commandButton 
-                        id="BuscarAPI"
-                        icon="#{cotacoesControllerBean.iconSearch}"
-                        value="Buscar"
-                        actionListener="#{cotacoesControllerBean.buscarAPI(cotacoesControllerBean.selectedIndicador.description, cotacoesControllerBean.selectedAPI, cotacoesControllerBean.dataInicial, cotacoesControllerBean.dataFinal)}"
-                        styleClass="button-API "
-                        update="cotacoesDataTable APIPanelGrid messages toolbar"
-                        oncomplete="PF('APIWidgetVar').hide()"
-                        process="APIDialog ">
-                        </h:commandButton>
-      </div>
-      </div>
-    </div>
-  </div>
-  
   
 
     <div class="table-conteiner">
     		
     	<div class="button-container-table">
-   			<a id="btnAdd"  href="Cotacoes.xhtml"><i class="bi bi-plus"></i> Adicionar</a>
+   			<a id="btnAdd"  href="Cotacoes.xhtml">+ Adicionar</a>
    			
-   			<h:commandButton id="btnAddAPI" styleClass="btn">
-    			<i class="bi bi-box-seam"></i>
-    			<h:outputText value="API" />
-    			<f:ajax render="modalAPI" onevent="abrirModalAPI" />
-			</h:commandButton>
+   			<h:commandLink  class="btnAddAPI" value="+ API" actionListener="#{cotacoesControllerBean.initNewBuscaAPI()}" >
+    			<f:ajax execute="@this" render="modalAPI" onevent="abrirModalAPI"/>
+			</h:commandLink>
 
    		</div>
    		
@@ -234,18 +132,122 @@
     </h:column>
     
     <h:column >
-   	 	<h:commandLink class="icon-edit-cotacoes" action="#{cotacoesControllerBean.editar(cotacoes)}" value="">
+   	 	<h:commandLink class="icon-edit-cotacoes" action="#{cotacoesControllerBean.editar(cotacoes)}" value="" >
             <i class="bi bi-pencil-square"></i>
-        </h:commandLink>	
+        </h:commandLink>
+        	
    		<h:commandLink class="icon-trash-cotacoes" value="">
     		<f:setPropertyActionListener target="#{cotacoesControllerBean.selectedCotacao}" value="#{cotacoes}" />
     		<f:ajax render="modalConfirmacaoExclusao" onevent="abrirModal" />
     		<i class="bi bi-trash3"></i>
 		</h:commandLink>
     </h:column>
+    
 	</h:dataTable>
    </div>
     </div>
+    
+    
+    <div class="modal fade" id="modalConfirmacaoExclusao" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">CONFIRMAÇÃO DE EXCLUSÃO</h5>
+        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Você realmente deseja EXCLUIR essa cotação?</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-modal-cancel" type="button" data-bs-dismiss="modal">Cancelar</button>
+        <h:commandButton class="btn btn-modal-confirmation" value="Excluir" action="#{cotacoesControllerBean.excluir}"></h:commandButton>
+      </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" id="modalAPI" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">BUSCAR DADOS ATUALIZADOS</h5>
+        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body-API">
+       
+       <div class="input-container-API">
+       
+       		<h:outputLabel value="Indicador: " class="label-indicator-selectedAPI" for="indicadorAPI"/>
+       		<h:selectOneMenu
+			id="indicadorAPI"
+			value="#{cotacoesControllerBean.selectedIndicador}"
+            class="input-indicator-API"
+			converter="indicadoresConverter">
+				<f:selectItem itemLabel="Selecione..."
+					noSelectionOption="true"
+					itemValue=""/>
+				<f:selectItems 
+					value="#{cotacoesControllerBean.listaIndicadores}" 
+					var="indicador"
+					itemLabel="#{indicador.description}" itemValue="#{indicador}"/>
+			</h:selectOneMenu>
+	</div>
+	<div class="input-container-API">  
+                    <h:outputLabel value="API: " class="label-indicator-selectedAPI" for="API" />
+                    <h:selectOneMenu
+            			id="API"
+            			class="input-API"
+            			value="#{cotacoesControllerBean.selectedAPI}">
+            		<f:selectItem itemLabel="Selecione..." itemValue="" noSelectionOption="true" />
+           			<f:selectItem itemLabel="Ações - Alpha Vantage" itemValue="1" />
+           	 		<f:selectItem itemLabel="Moedas - Awesome" itemValue="2" />
+        			</h:selectOneMenu>
+        			
+			</div>
+			<div class="input-container-API">
+
+        		 <h:outputLabel 
+   					class="label-dateInitial" 
+   					for="dateInitial" 
+   					value="Data Inicial: " />
+   				
+   				<h:inputText  
+   					id="dateInitial"
+   					class="input-dateHour-initial " 
+   					value="#{cotacoesControllerBean.dataInicial}"
+   					converter="localDateTimeConverter" >
+   					<f:passThroughAttribute name="type" value="datetime-local"/>
+   					</h:inputText>
+   					
+   				</div>
+   				<div class="input-container-API">
+   					
+   					<h:outputLabel 
+   					class="label-dateEnd" 
+   					for="dateEnd" 
+   					value="Data Final: " />
+   					
+   				<h:inputText  
+   					id="dateEnd"
+   					class="input-dateHour-final " 
+   					value="#{cotacoesControllerBean.dataFinal}"
+   					converter="localDateTimeConverter">
+   					<f:passThroughAttribute name="type" value="datetime-local"/>
+		   		</h:inputText>	
+   		</div>			
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-modal-cancel" type="button" data-bs-dismiss="modal">Cancelar</button>
+        <h:commandButton 
+			id="BuscarAPI"
+			value="Buscar"
+			actionListener="#{cotacoesControllerBean.buscarAPI(cotacoesControllerBean.selectedIndicador.description, cotacoesControllerBean.selectedAPI, cotacoesControllerBean.dataInicial, cotacoesControllerBean.dataFinal)}"
+			styleClass="btn btn-modal-confirmation-chart">
+		</h:commandButton>
+      </div>
+      </div>
+    </div>
+  </div>
 		</h:form>
 
 	<footer> Lista De Cotações </footer>

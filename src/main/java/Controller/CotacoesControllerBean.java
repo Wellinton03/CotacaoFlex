@@ -67,7 +67,10 @@ public class CotacoesControllerBean implements Serializable {
     	 Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
     	 selectedCotacao = (Cotacoes) flash.get("selectedCotacao");
 	      
-    	 selectedCotacao = new Cotacoes();
+    	 
+    	 if (selectedCotacao == null) {
+     	 selectedCotacao = new Cotacoes();
+    	 }
     	 
     }
     
@@ -91,11 +94,11 @@ public class CotacoesControllerBean implements Serializable {
     }
     
     public void initNewBuscaAPI() {
+    	selectedIndicador = new Indicadores();
     	selectedAPI = null;
-    	listaIndicadores = indicadorService.todosIndicadores();
     	dataInicial = null;
     	dataFinal = null;
-    	selectedIndicador = new Indicadores();
+    	listaIndicadores = indicadorService.todosIndicadores();
     }
     
     public static String formatLocalDateTime(LocalDateTime dateTime) {
@@ -115,7 +118,6 @@ public class CotacoesControllerBean implements Serializable {
     }
     
     public String salvar() {
-    	System.out.println("Cotação " + selectedCotacao.getId() + " " + selectedCotacao.getValor() + " " + selectedCotacao.getDataHora() + " " + selectedCotacao.getIndicadores() + " ");
         if (selectedCotacao.getIndicadores() != null) {
             cotacoesService.salvar(selectedCotacao);
             listaCotacoes = cotacoesService.todasCotacoes();
@@ -175,8 +177,6 @@ public class CotacoesControllerBean implements Serializable {
     	
     	return null;
     }
-    
-    
     
     public void buscarAPI(String indicadorDescription, String selectedAPI, LocalDateTime dataInicial, LocalDateTime dataFinal) {
         
@@ -401,7 +401,7 @@ public class CotacoesControllerBean implements Serializable {
 	public void setFinalDate(String finalDate) {
 		this.finalDate = finalDate;
 	}
-
+	
 }
     
 
