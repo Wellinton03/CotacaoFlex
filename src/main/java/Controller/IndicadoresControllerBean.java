@@ -26,7 +26,6 @@ public class IndicadoresControllerBean implements Serializable {
 	
 	private String termoPesquisa;
 	
-	@ManagedProperty(value = "#{param.id}")
 	private Long indicadorId;
 	
 	@Inject
@@ -79,7 +78,6 @@ public class IndicadoresControllerBean implements Serializable {
  	}
 
 	public void excluir() {
-		System.out.println("Indicador " + selectedIndicador);
 		if (selectedIndicador != null) {
 			indicadorService.excluir(selectedIndicador);
 			selectedIndicador = null;

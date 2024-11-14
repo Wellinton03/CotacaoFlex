@@ -74,7 +74,7 @@
        		<div class="button-chart-conteiner">
    				<h:commandLink styleClass="btn-chart" value="" action="#{cotacoesControllerBean.initNewFiltro()}" immediate="true">
    				<f:ajax execute="@this" render=":form"  onevent="abrirModal" />
-    				<i class="bi bi-funnel"></i> Filtrar
+    				<i class="bi bi-funnel"></i> Novo Filtro
 		</h:commandLink> 
     		</div>
     
@@ -83,7 +83,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Novo Filtro</h5>
-        <h:commandButton class="btn-close" data-bs-dismiss="modal" aria-label="Close"></h:commandButton>
+        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body-chart">
       
@@ -153,11 +153,7 @@
    			</div>
       </div>
       <div class="modal-footer-chart">
-        <h:commandButton 
-        	class="btn btn-modal-cancel" 
-        	value="Cancelar" 
-        	data-bs-dismiss="modal" >
-        </h:commandButton>
+         <button class="btn btn-modal-cancel" type="button" data-bs-dismiss="modal">Cancelar</button>
         <h:commandButton 
         		 class="btn btn-modal-confirmation-chart" 
                  value="Filtrar" 

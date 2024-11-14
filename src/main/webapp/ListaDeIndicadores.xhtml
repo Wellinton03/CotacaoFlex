@@ -70,23 +70,6 @@
       </div>
     </nav>
     
-    <div class="modal fade" id="modalConfirmacaoExclusao" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">CONFIRMAÇÃO DE EXCLUSÃO</h5>
-        <h:commandButton class="btn-close" data-bs-dismiss="modal" aria-label="Close"></h:commandButton>
-      </div>
-      <div class="modal-body">
-        <p>Este INDICADOR pode ter COTAÇÕES vinculadas, você realmente deseja EXCLUIR?</p>
-      </div>
-      <div class="modal-footer">
-        <h:commandButton class="btn btn-modal-cancel" value="Cancelar" data-bs-dismiss="modal" ></h:commandButton>
-        <h:commandButton class="btn btn-modal-confirmation" value="Excluir" action="#{indicadoresControllerBean.excluir()}"></h:commandButton>
-      </div>
-      </div>
-    </div>
-  </div>
     
     <div class="table-conteiner">
     
@@ -140,6 +123,26 @@
 	</h:dataTable>
    </div>
     </div>
+    
+    
+    <div class="modal fade" id="modalConfirmacaoExclusao" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">CONFIRMAÇÃO DE EXCLUSÃO</h5>
+        <h:commandButton class="btn-close" data-bs-dismiss="modal" aria-label="Close"></h:commandButton>
+      </div>
+      <div class="modal-body">
+        <p>Este INDICADOR pode ter COTAÇÕES vinculadas, você realmente deseja EXCLUIR?</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-modal-cancel" type="button" data-bs-dismiss="modal">Cancelar</button>
+        <h:commandButton class="btn btn-modal-confirmation" value="Excluir" action="#{indicadoresControllerBean.excluir()}"></h:commandButton>
+      </div>
+      </div>
+    </div>
+  </div>
+  
 		</h:form>
 	<footer> Lista de Indicadores </footer>
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

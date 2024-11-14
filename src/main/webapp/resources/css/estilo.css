@@ -212,21 +212,22 @@
 		font-size: 17px;
 	
 }
-	#btnAddAPI {
+	.btnAddAPI {
 		color: #FF8C00;
-		padding: 5px;
-		border: 1.5px solid #FF8C00;
-		border-radius: 5px;
-		text-decoration: none;
-		font-family:monospace ;
+		background-color: #1F1D2B;
+    	padding: 5px; 
+    	border: 1.5px solid #FF8C00;
+    	border-radius: 5px;
+    	text-decoration: none;
+    	margin-left: 5px;
 	}
 	
-	 #btnAddAPI:hover {
+	 .btnAddAPI:hover {
 	 	color: white;
     	background-color: #FF8C00;
 	}
 	
-	#btnAddAPI i{
+	.btnAddAPI i{
 		font-size: 17px;
 		margin-right: 5px;
 }
@@ -321,6 +322,12 @@
 		align-items: center;
 	}
 	
+		.input-container {
+    	display: flex;
+    	align-items: center;
+    	margin-bottom: 15px; 
+}
+	
 	.box-indicator {
 		background-color: #2D303E;
 		display: flex;
@@ -344,14 +351,6 @@
 		border: 2px groove orange;
 		border-radius: 10px;
 	}
-	
-	
-	
-	.input-container {
-    	display: flex;
-    	align-items: center;
-    	margin-bottom: 15px; 
-}
 	
 	.label-indicator {
 		color:white;
@@ -397,7 +396,11 @@
 		color: white;
 	}
 	
-	
+	.label-indicator-selectedAPI {
+		color:white;
+		margin-right: 5px;
+		margin-left: -20px;
+	}
 
   	.input-down-container {
   		display: flex;
@@ -511,6 +514,59 @@
     	background-color: #FF8C00;
 	}
 	
+	/*  MODAL API*/
+	
+	.modal-body-API {
+		display:flex;
+		flex-direction: column;
+		justify-content: center;
+		columns: 2;
+		align-items: center;
+		height:40vh;
+		background-color: #262831;
+	}
+	
+	.input-container-API {
+    	display: flex;
+    	justify-content: center;
+    	margin-bottom: 15px; 
+}
+
+ 	.input-API {
+ 		margin-right: -40px;
+		background-color: #4d5162;
+    	color: white ;
+    	border-radius: 10px;
+    	border: none;
+		outline: none;
+    	padding: 5px;
+    	width: 200px;
+ }
+ 
+  .input-indicator-API {
+  		margin-right: 18px;
+		background-color: #4d5162;
+    	color: white ;
+    	border-radius: 10px;
+    	border: none;
+		outline: none;
+    	padding: 5px;
+    	width: 200px;
+  }
+  
+  .label-dateInitial {
+  		color:white;
+		margin-right: 5px;
+		margin-left: -20px;
+  }
+  
+  .label-dateEnd {
+  		color:white;
+		margin-right: 5px;
+		margin-left: -20px;
+  }
+	 
+	
 	/* MODAL CHART */
 	
 	
@@ -523,6 +579,8 @@
 		height:40vh;
 		background-color: #262831;
 	}
+	
+	
 	
 	.button-filter-label {
 		color: white;
