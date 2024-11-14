@@ -25,17 +25,10 @@
          <i class="bi bi-list"></i>
         </button>
         
-        <a id="btnHomeScreen" class="btn " href="CadastroDeIndicadores.xhtml" >
+        <a id="btnHomeScreen" class="btn " href="TelaInicial.xhtml" >
       		<i class="bi bi-house-door"></i></a>
 			</div>        
       	
-      		<div class="navbar-right">
-        <a id="btnSignIn" class="btn " href="#">
-        <i class="bi bi-box-arrow-in-right"></i> Entrar</a>
-        
-        	<a id="btnRegister" class="btn " href="#">
-        	<i class="bi bi-plus-circle"></i> Cadastre-se</a>
-      		</div>
         </div>
         
         <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
@@ -181,9 +174,20 @@
     <div class="table-conteiner">
     		
     	<div class="button-container-table">
-   			<a id="btnAdd"  href="Cotacoes.xhtml"><i class="bi bi-plus"></i> Adicionar</a>
+   			<a id="btnAdd"  href="CadastroDeCotacoes.xhtml"><i class="bi bi-plus"></i> Adicionar</a>
    			
-   			<h:commandButton id="btnAddAPI" styleClass="btn">
+   			<h:commandButton id="btnAdd" styleClass="btn">
+    			<i class="bi bi-box-seam"></i>
+    			<h:outputText value="API" />
+    			<f:ajax render="modalAPI" onevent="abrirModalAPI" />
+			</h:commandButton>
+
+   		</div>
+    		
+    	<div class="search-container-table">
+   			<a id="btnAddAPI" href="CadastroDeCotacoes.xhtml"><i class="bi bi-plus"></i> Buscar API</a>
+   			
+   			<h:commandButton id="btnAddPI" styleClass="btn">
     			<i class="bi bi-box-seam"></i>
     			<h:outputText value="API" />
     			<f:ajax render="modalAPI" onevent="abrirModalAPI" />
