@@ -1,5 +1,5 @@
-package util;
-
+package br.com.wellinton.cotacao.util;
+/*
 import java.io.Serializable;
 
 import javax.annotation.Priority;
@@ -53,3 +53,5 @@ public class TransacionalInterceptor implements Serializable {
 	}
 
 }
+
+*/

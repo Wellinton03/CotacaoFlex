@@ -1,5 +1,5 @@
-package service;
-
+package br.com.wellinton.cotacao.service;
+/*
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Calendar;
@@ -248,3 +248,4 @@ public class CotacoesService implements Serializable {
     }
 
 }
+*/

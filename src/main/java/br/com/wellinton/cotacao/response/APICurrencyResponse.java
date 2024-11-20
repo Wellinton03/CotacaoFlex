@@ -1,5 +1,5 @@
-package response;
-
+package br.com.wellinton.cotacao.response;
+/*
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -53,3 +53,4 @@ public class APICurrencyResponse {
 	
 	
 }
+*/

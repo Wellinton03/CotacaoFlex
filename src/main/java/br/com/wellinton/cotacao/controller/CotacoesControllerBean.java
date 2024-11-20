@@ -1,5 +1,5 @@
-package Controller;
-
+package br.com.wellinton.cotacao.controller;
+/*
 import java.io.Serializable;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
@@ -405,3 +405,4 @@ public class CotacoesControllerBean implements Serializable {
 }
     
 
+*/

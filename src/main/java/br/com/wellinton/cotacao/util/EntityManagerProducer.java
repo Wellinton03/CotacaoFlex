@@ -1,5 +1,5 @@
-package util;
-
+package br.com.wellinton.cotacao.util;
+/*
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Disposes;
@@ -27,3 +27,5 @@ public class EntityManagerProducer {
 		manager.close();
 	}
 }
+
+*/

@@ -1,5 +1,5 @@
-package util;
-
+package br.com.wellinton.cotacao.util;
+/*
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -12,4 +12,6 @@ import javax.interceptor.InterceptorBinding;
 @InterceptorBinding
 public @interface Transacional {
 
-}
+
+
+*/

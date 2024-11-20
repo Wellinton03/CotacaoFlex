@@ -1,5 +1,5 @@
 package DTO;
-
+/*
 public class IndicadorDTO {
 		
 		private Long id;
@@ -33,3 +33,4 @@ public class IndicadorDTO {
 		
 		
 }
+*/

@@ -1,5 +1,5 @@
-package service;
-
+package br.com.wellinton.cotacao.service;
+/*
 import java.io.Serializable;
 import java.util.List;
 
@@ -75,3 +75,4 @@ public class IndicadoresService implements Serializable {
 		}
 	}
 }
+*/

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <dirs>
+    <entry loc="C:\Users\welli\.sdkman\candidates\java\17.0.8-zulu" stamp="1688544310000"/>
+    <entry loc="C:\Program Files\eclipse\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.4.v20240802-1551\jre" stamp="1732017750855"/>
     <entry loc="C:\Program Files\eclipse\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.8.v20230831-1047" stamp="1723471447349"/>
+    <entry loc="C:\Users\welli\.sdkman\candidates\java\21.0.3.fx-zulu" stamp="1712649188000"/>
+    <entry loc="C:\Program Files\eclipse\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.4.v20240802-1551" stamp="1732017750850"/>
     <entry loc="C:\Program Files\eclipse\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.8.v20230831-1047\jre" stamp="1723471460296"/>
+    <entry loc="C:\Users\welli\.sdkman\candidates\java\current" stamp="1718968395971"/>
 </dirs>

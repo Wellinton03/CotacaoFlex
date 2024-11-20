@@ -1,5 +1,5 @@
 package Converter;
-
+/*
 import java.io.Serializable;
 
 import javax.faces.component.UIComponent;
@@ -57,3 +57,4 @@ public class IndicadoresConverter implements Converter, Serializable {
         }
     }
 }
+*/

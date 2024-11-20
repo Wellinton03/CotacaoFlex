@@ -1,10 +1,10 @@
-package service;
+package br.com.wellinton.cotacao.service;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import entity.Usuario;
-import repository.UsuarioRepository;
+import br.com.wellinton.cotacao.user.Usuario;
+import br.com.wellinton.cotacao.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
@@ -19,7 +19,7 @@ public class UsuarioService {
 	
 	public Usuario salvarUsuario(Usuario usuario) {
 		
-		usuario.setSenha(passEncoder.encode(usuario.getSenha()));
+		usuario.setPassword(passEncoder.encode(usuario.getPassword()));
 		
 		return userRepository.save(usuario);
 	}
