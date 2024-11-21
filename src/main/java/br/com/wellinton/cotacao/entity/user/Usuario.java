@@ -1,4 +1,4 @@
-package br.com.wellinton.cotacao.user;
+package br.com.wellinton.cotacao.entity.user;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -64,11 +64,6 @@ public class Usuario implements UserDetails{
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
                 else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
-	}
-
-	@Override
-	public String getPassword() {
-		return password;
 	}
 
 	@Override

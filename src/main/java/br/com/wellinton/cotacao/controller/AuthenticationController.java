@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.wellinton.cotacao.user.Usuario;
+import br.com.wellinton.cotacao.entity.user.Usuario;
 import jakarta.validation.Valid;
-import br.com.wellinton.cotacao.user.AuthenticationDTO;
-import br.com.wellinton.cotacao.user.LoginResponseDTO;
-import br.com.wellinton.cotacao.user.RegisterDTO;
+import br.com.wellinton.cotacao.entity.user.AuthenticationDTO;
+import br.com.wellinton.cotacao.entity.user.LoginResponseDTO;
+import br.com.wellinton.cotacao.entity.user.RegisterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

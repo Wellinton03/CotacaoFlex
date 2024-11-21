@@ -3,7 +3,7 @@ package br.com.wellinton.cotacao.service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.wellinton.cotacao.user.Usuario;
+import br.com.wellinton.cotacao.entity.user.Usuario;
 import br.com.wellinton.cotacao.repository.UsuarioRepository;
 
 @Service

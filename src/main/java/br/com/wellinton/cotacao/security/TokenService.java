@@ -4,7 +4,7 @@
  */
 package br.com.wellinton.cotacao.security;
 
-import br.com.wellinton.cotacao.user.Usuario;
+import br.com.wellinton.cotacao.entity.user.Usuario;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -46,7 +46,7 @@ public class TokenService {
         Algorithm algorithm = Algorithm.HMAC256(secret);
         
         return JWT.require(algorithm)
-                .withIssuer("atuh-api")
+                .withIssuer("auth-api")
                 .build()
                 .verify(token)
                 .getSubject();
