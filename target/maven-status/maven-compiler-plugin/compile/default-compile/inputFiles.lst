@@ -1,12 +1,12 @@
 C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\Application.java
 C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\controller\AuthenticationController.java
-C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\controller\CotacoesControllerBean.java
-C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\controller\IndicadorControllerBean.java
+C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\controller\CotacaoController.java
+C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\controller\IndicadorController.java
 C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\converter\IndicadoresConverter.java
 C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\converter\LocalDateTimeConverter.java
-C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\dto\FiltroDTO.java
-C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\dto\IndicadorDTO.java
 C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\entity\cotacao\Cotacao.java
+C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\entity\cotacao\CotacaoDTO.java
+C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\entity\cotacao\CotacaoResponseDTO.java
 C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\entity\indicador\Indicador.java
 C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\entity\indicador\IndicadorDTO.java
 C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\entity\indicador\IndicadorResponseDTO.java
@@ -15,6 +15,7 @@ C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cota
 C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\entity\user\RegisterDTO.java
 C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\entity\user\UserRole.java
 C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\entity\user\Usuario.java
+C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\repository\CotacaoRepository.java
 C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\repository\IndicadorRepository.java
 C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\repository\UsuarioRepository.java
 C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\response\APICurrencyResponse.java
@@ -25,7 +26,7 @@ C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cota
 C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\service\APIAlphaVantage.java
 C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\service\APIAwesome.java
 C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\service\AuthenticationService.java
-C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\service\CotacoesService.java
+C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\service\CotacaoService.java
 C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\service\IndicadorService.java
 C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\service\UsuarioService.java
 C:\Users\welli\eclipse-workspace\CotacaoFlex\src\main\java\br\com\wellinton\cotacao\util\EntityManagerProducer.java

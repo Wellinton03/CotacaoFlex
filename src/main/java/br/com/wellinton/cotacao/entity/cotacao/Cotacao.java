@@ -27,18 +27,27 @@ import lombok.ToString;
 @ToString
 public class Cotacao {
 
+    
+    public Cotacao(Indicador indicador, LocalDateTime dataHora, Double valor) {
+        this.setIndicador(indicador);
+        this.setDataHora(dataHora);
+        this.setValor(valor);
+    }
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "data_Hora")
+    @Column(name = "data_Hora", nullable = false)
     private LocalDateTime dataHora;
 
-    @Column(name = "valor")
+    @Column(name = "valor", nullable = false)
     private Double valor;
 
     @ManyToOne
     @JoinColumn(name = "id_indicador")
     private Indicador indicador;
 
+    
+    
 }

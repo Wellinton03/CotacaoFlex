@@ -17,18 +17,20 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-	@Autowired
+    
+    @Autowired
     private SecurityFilter securityFilter;
     
-            @Bean
+         @Bean
 	 public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 	        http.csrf(csrf -> csrf.disable())
                         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 	        .authorizeHttpRequests(authorize ->
             authorize
                 .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                    .requestMatchers("/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.GET, "/indicador/**").hasRole("USER")
+                    .requestMatchers(HttpMethod.GET, "/cotacao/**").hasRole("USER")
+                    .requestMatchers("/**").hasRole("ADMIN")
                 .anyRequest().authenticated() 
                    
         )
