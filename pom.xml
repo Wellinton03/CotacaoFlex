@@ -11,7 +11,7 @@
 	<groupId>com.silveiraWellinton</groupId>
 	<artifactId>Cotacao</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<name>Cotacao</name>
 
 	<properties>
@@ -39,10 +39,27 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-data-jpa</artifactId>
                 </dependency>
+                
+                <dependency>
+                    <groupId>jakarta.servlet</groupId>
+                    <artifactId>jakarta.servlet-api</artifactId>
+                    <scope>provided</scope>
+                </dependency>
 		
 		<dependency>
                     <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-web</artifactId> 
+                    <artifactId>spring-boot-starter-web</artifactId>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>spring-boot-starter-tomcat</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+                
+                <dependency>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-context</artifactId>
                 </dependency>
                 
                  <dependency>
@@ -80,6 +97,7 @@
 		<finalName>cotacao</finalName>
 		<plugins>
 			<plugin>
+                            
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.13.0</version>
@@ -88,6 +106,15 @@
 					<target>17</target>
 				</configuration>
 			</plugin>
+                        
+                        <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-war-plugin</artifactId>
+                                <version>3.3.2</version>
+                                <configuration>
+                                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                                </configuration>
+                        </plugin>
 		</plugins>
 	</build>
 </project>

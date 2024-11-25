@@ -3,6 +3,7 @@ package br.com.wellinton.cotacao;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -15,7 +16,7 @@ import org.springframework.boot.SpringApplication;
  */
 
 @SpringBootApplication
-public class Application {
+public class Application extends SpringBootServletInitializer  {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     } 
