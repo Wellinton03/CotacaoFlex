@@ -13,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @Configuration
 @EnableWebSecurity
@@ -21,16 +23,21 @@ public class SecurityConfig {
     @Autowired
     private SecurityFilter securityFilter;
     
+     @Autowired
+    private HandlerMappingIntrospector handlerMappingIntrospector;
+    
          @Bean
 	 public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 	        http.csrf(csrf -> csrf.disable())
                         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 	        .authorizeHttpRequests(authorize ->
             authorize
-                .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/indicador/**").hasRole("USER")
-                    .requestMatchers(HttpMethod.GET, "/cotacao/**").hasRole("USER")
-                    .requestMatchers("/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+                    .requestMatchers(new MvcRequestMatcher(handlerMappingIntrospector, "/api/indicador/**")).hasRole("USER")
+                    .requestMatchers(new MvcRequestMatcher(handlerMappingIntrospector, "/api/cotacao/**")).hasRole("USER")
+                    .requestMatchers("/api/**").hasRole("ADMIN")
+                    .requestMatchers("/faces/**") 
+                    .permitAll()
                 .anyRequest().authenticated() 
                    
         )
