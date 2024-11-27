@@ -2,7 +2,6 @@ package br.com.wellinton.cotacao.controller;
 
 import br.com.wellinton.cotacao.entity.indicador.IndicadorDTO;
 import br.com.wellinton.cotacao.repository.IndicadorRepository;
-import br.com.wellinton.cotacao.entity.indicador.Indicador;
 import br.com.wellinton.cotacao.entity.indicador.IndicadorResponseDTO;
 import br.com.wellinton.cotacao.service.IndicadorService;
 import jakarta.validation.Valid;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/indicador")
+@RequestMapping("/api/indicador")
 public class IndicadorController  {
 
 	@Autowired

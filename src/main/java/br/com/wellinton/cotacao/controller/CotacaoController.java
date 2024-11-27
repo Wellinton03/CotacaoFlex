@@ -3,8 +3,6 @@ package br.com.wellinton.cotacao.controller;
 import br.com.wellinton.cotacao.entity.cotacao.CotacaoDTO;
 import br.com.wellinton.cotacao.entity.cotacao.CotacaoResponseDTO;
 import br.com.wellinton.cotacao.repository.CotacaoRepository;
-import br.com.wellinton.cotacao.entity.cotacao.Cotacao;
-import br.com.wellinton.cotacao.entity.indicador.Indicador;
 import br.com.wellinton.cotacao.service.CotacaoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("/cotacao")
+@RequestMapping("/api/cotacao")
 public class CotacaoController {
 
     @Autowired
