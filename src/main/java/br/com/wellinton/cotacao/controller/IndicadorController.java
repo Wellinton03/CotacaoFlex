@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api/indicador")
+@RequestMapping("api/indicador")
 public class IndicadorController  {
 
 	@Autowired
