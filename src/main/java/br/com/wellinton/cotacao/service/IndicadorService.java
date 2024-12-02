@@ -38,10 +38,10 @@ public Indicador salvar(IndicadorDTO data) {
 }
     
     @Transactional
-    public void excluir(IndicadorDTO data) {
-        Indicador indicador  = this.indicadorRepository.findById(data.id())
+    public void excluir(Long id) {
+        Indicador indicador  = this.indicadorRepository.findById(id)
                   .orElseThrow(()->  new IllegalArgumentException("Indicador não encontrado"));
-            
+            System.out.println(indicador);
         indicadorRepository.delete(indicador);
     }
     

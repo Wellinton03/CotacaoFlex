@@ -5,8 +5,11 @@
 package br.com.wellinton.cotacao.beans;
 
 import br.com.wellinton.cotacao.api.IndicadoresRequest;
+import br.com.wellinton.cotacao.entity.indicador.IndicadorDTO;
 import br.com.wellinton.cotacao.entity.indicador.IndicadorResponseDTO;
 import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -18,13 +21,16 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-@Scope("request")
+@Scope("view")
 public class IndicadoresBean {
     
     @Autowired
     private IndicadoresRequest indicadoresRequest;
     
+    private IndicadorResponseDTO indicadorSelecionado;
     private List<IndicadorResponseDTO> indicadores;
+    private String description;
+    private Long id;
     
     
     @PostConstruct
@@ -40,4 +46,66 @@ public class IndicadoresBean {
         System.out.println(indicadores);
         return indicadores;
     }
+    
+    public String salvar() {
+        if(description != null) {
+            
+        try {
+            IndicadorDTO indicadorDTO = new IndicadorDTO(description, id);
+                indicadoresRequest.salvar(indicadorDTO);
+        } catch (Exception e ) {
+            e.printStackTrace();
+            
+            FacesContext.getCurrentInstance()
+                    .addMessage(null, new FacesMessage(FacesMessage.FACES_MESSAGES,
+            "Erro ao salvar o Indicador, Por favor tente novamente"));
+            
+            return null;
+        }
+        
+    } else {
+            FacesContext.getCurrentInstance()
+                    .addMessage(null, new FacesMessage(FacesMessage.FACES_MESSAGES,
+                    "Por favor, adicione um Indicador válido e tente novamente"));
+        }
+        return "ListaDeIndicadores?faces-redirect=true";
+    }
+    
+    
+    
+    public void excluir() {
+        if(indicadorSelecionado.getId() != null) {
+        indicadoresRequest.excluir(indicadorSelecionado.getId());
+}
+        
+    }
+    
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public IndicadorResponseDTO getIndicadorSelecionado() {
+        return indicadorSelecionado;
+    }
+
+    public void setIndicadorSelecionado(IndicadorResponseDTO indicadorSelecionado) {
+        this.indicadorSelecionado = indicadorSelecionado;
+    }
+    
+    
+    
+    
 }

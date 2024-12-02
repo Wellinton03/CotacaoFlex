@@ -8,11 +8,20 @@ package br.com.wellinton.cotacao.entity.indicador;
  *
  * @author welli
  */
-public record IndicadorResponseDTO(String description) {
+public record IndicadorResponseDTO(String description, Long id) {
     
     public IndicadorResponseDTO(Indicador indicador){
-        this(indicador.getDescription());
+        this(indicador.getDescription(),
+        indicador.getId());
         
     }
+    
+     public String getDescription() {
+        return description;
+    }
 
+     
+     public Long getId() {
+         return id;
+     }
 }
