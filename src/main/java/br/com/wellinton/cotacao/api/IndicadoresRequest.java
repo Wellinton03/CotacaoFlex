@@ -4,7 +4,7 @@
  */
 package br.com.wellinton.cotacao.api;
 
-import br.com.wellinton.cotacao.entity.indicador.IndicadorDTO;
+import br.com.wellinton.cotacao.entity.indicador.IndicadorRequestDTO;
 import br.com.wellinton.cotacao.entity.indicador.IndicadorResponseDTO;
 import java.util.List;
 import org.springframework.http.HttpEntity;
@@ -37,7 +37,7 @@ public class IndicadoresRequest {
         return List.of(restTemplate.getForObject(url, IndicadorResponseDTO[].class));
     }
     
-    public void salvar(IndicadorDTO data) {
+    public void salvar(IndicadorRequestDTO data) {
         String url = baseUrl + "/cadastrar";
         
         restTemplate.postForObject(url, data, Void.class);
@@ -46,7 +46,13 @@ public class IndicadoresRequest {
     public void excluir(Long id) {
         String url = baseUrl + "/excluir/" + id;
         
-        restTemplate.delete(url);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        
+        HttpEntity<String> requestEntity = new HttpEntity<>("", headers);
+        
+         restTemplate.exchange(url, HttpMethod.DELETE, requestEntity, Void.class
+   );
     }
     
 }

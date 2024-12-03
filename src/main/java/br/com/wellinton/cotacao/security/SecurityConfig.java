@@ -28,8 +28,8 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authorize -> authorize
                  .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/api/cotacao/**").hasRole("USER")
-                    .requestMatchers("/api/**").hasRole("ADMIN")
+                    .requestMatchers("/api/indicador/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/CotacaoFlex/api/cotacao/**").hasRole("USER")
                 .anyRequest().permitAll()
             )
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);

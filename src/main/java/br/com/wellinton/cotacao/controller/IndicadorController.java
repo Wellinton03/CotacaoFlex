@@ -1,6 +1,6 @@
 package br.com.wellinton.cotacao.controller;
 
-import br.com.wellinton.cotacao.entity.indicador.IndicadorDTO;
+import br.com.wellinton.cotacao.entity.indicador.IndicadorRequestDTO;
 import br.com.wellinton.cotacao.repository.IndicadorRepository;
 import br.com.wellinton.cotacao.entity.indicador.IndicadorResponseDTO;
 import br.com.wellinton.cotacao.service.IndicadorService;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("api/indicador")
+@RequestMapping("/api/indicador")
 public class IndicadorController  {
 
 	@Autowired
@@ -35,7 +35,7 @@ public class IndicadorController  {
         }
         
         @PostMapping("/cadastrar")
-        public ResponseEntity salvar(@RequestBody @Valid IndicadorDTO data) {
+        public ResponseEntity salvar(@RequestBody @Valid IndicadorRequestDTO data) {
                 try{
                     this.indicadorService.salvar(data);
                     return ResponseEntity.ok().build();
@@ -47,7 +47,7 @@ public class IndicadorController  {
         }
         
         @PutMapping("/editar")
-        public ResponseEntity editar(@RequestBody @Valid IndicadorDTO data) {
+        public ResponseEntity editar(@RequestBody @Valid IndicadorRequestDTO data) {
               try{
                     this.indicadorService.salvar(data);
                     return ResponseEntity.ok().build();

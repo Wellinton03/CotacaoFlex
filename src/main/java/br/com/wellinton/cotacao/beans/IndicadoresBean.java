@@ -5,11 +5,12 @@
 package br.com.wellinton.cotacao.beans;
 
 import br.com.wellinton.cotacao.api.IndicadoresRequest;
-import br.com.wellinton.cotacao.entity.indicador.IndicadorDTO;
+import br.com.wellinton.cotacao.entity.indicador.IndicadorRequestDTO;
 import br.com.wellinton.cotacao.entity.indicador.IndicadorResponseDTO;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
+import java.io.Serializable;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -22,12 +23,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope("view")
-public class IndicadoresBean {
+public class IndicadoresBean implements Serializable {
     
     @Autowired
     private IndicadoresRequest indicadoresRequest;
     
-    private IndicadorResponseDTO indicadorSelecionado;
+    private IndicadorRequestDTO indicadorSelecionado;
+    
     private List<IndicadorResponseDTO> indicadores;
     private String description;
     private Long id;
@@ -35,7 +37,30 @@ public class IndicadoresBean {
     
     @PostConstruct
     public void Init() {
+         System.out.println("Init chamado. IndicadorSelecionado: " + indicadorSelecionado);
         carregarIndicadores(); 
+    }
+    
+    public String editarIndicador(IndicadorResponseDTO indicadorResponse) {
+         if(indicadorResponse != null) {
+             if (indicadorSelecionado == null) {
+            indicadorSelecionado = new IndicadorRequestDTO();
+        }
+            indicadorSelecionado.setId(indicadorResponse.getId());
+            indicadorSelecionado.setDescription(indicadorResponse.getDescription());
+            System.out.println("ID: " + indicadorSelecionado.getId() + ", Descrição: " + indicadorSelecionado.getDescription());
+        }
+        return "CadastroDeIndicadores?faces-redirect=true";
+    }
+    
+    public void prepararExclusão(IndicadorResponseDTO indicadorResponse){
+        if(indicadorResponse != null) {
+             if (indicadorSelecionado == null) {
+            indicadorSelecionado = new IndicadorRequestDTO();
+        }
+            indicadorSelecionado.setId(indicadorResponse.getId());
+            indicadorSelecionado.setDescription(indicadorResponse.getDescription());
+        }
     }
     
     public void carregarIndicadores() {
@@ -48,11 +73,10 @@ public class IndicadoresBean {
     }
     
     public String salvar() {
-        if(description != null) {
+        if(indicadorSelecionado.getDescription() != null) {
             
         try {
-            IndicadorDTO indicadorDTO = new IndicadorDTO(description, id);
-                indicadoresRequest.salvar(indicadorDTO);
+                indicadoresRequest.salvar(indicadorSelecionado);
         } catch (Exception e ) {
             e.printStackTrace();
             
@@ -71,15 +95,14 @@ public class IndicadoresBean {
         return "ListaDeIndicadores?faces-redirect=true";
     }
     
-    
-    
     public void excluir() {
         if(indicadorSelecionado.getId() != null) {
+            System.out.println(indicadorSelecionado.getId());
         indicadoresRequest.excluir(indicadorSelecionado.getId());
+        carregarIndicadores();
 }
         
     }
-    
 
     public String getDescription() {
         return description;
@@ -97,11 +120,12 @@ public class IndicadoresBean {
         this.id = id;
     }
 
-    public IndicadorResponseDTO getIndicadorSelecionado() {
+    public IndicadorRequestDTO getIndicadorSelecionado() {
+         System.out.println("Indicador selecionado acessado: " + indicadorSelecionado);
         return indicadorSelecionado;
     }
 
-    public void setIndicadorSelecionado(IndicadorResponseDTO indicadorSelecionado) {
+    public void setIndicadorSelecionado(IndicadorRequestDTO indicadorSelecionado) {
         this.indicadorSelecionado = indicadorSelecionado;
     }
     

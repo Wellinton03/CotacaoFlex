@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package br.com.wellinton.cotacao.config.Scope;
+package br.com.wellinton.cotacao.config;
 
 import java.util.HashMap;
 import org.springframework.beans.factory.config.CustomScopeConfigurer;
